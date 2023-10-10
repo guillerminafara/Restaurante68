@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * @author Fran-PC
  */
 public class Pedido {
-       int idPedido;
+    int idPedido;
     int idMesa;
     String NombreMesero;
     LocalDateTime fechaHora;
