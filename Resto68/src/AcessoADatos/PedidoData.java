@@ -11,8 +11,6 @@ import java.sql.Statement;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -89,8 +87,7 @@ public class PedidoData {
                 JOptionPane.showMessageDialog(null, "Producto modificado");
             }
 
-        } catch (SQLException ex) {
-            //Logger.getLogger(ProductoData.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {            
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla producto" + ex.getMessage());
 
         }
