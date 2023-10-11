@@ -23,11 +23,12 @@ public class PedidoData {
     
     public void agregarPedido(Pedido pedido){
         String sql ="INSERT INTO pedido (idMesa, nombreMesero, fechaHora, importe, cobrada) VALUES(?,?,?,?,?)";
+        java.sql.Timestamp sqlTimestamp = java.sql.Timestamp.valueOf(pedido.getFechaHora());
         try {
             PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS );
             ps.setInt(1, pedido.getIdMesa());
             ps.setString(2, pedido.getNombreMesero());
-            ps.setDate(3, Date.from((pedido.getFechaHora().atZone(ZoneId.systemDefault()))).toInstant);//convierto de localdate a zonedate para poder hacerlo instant y poder pasarlo a date
+            ps.setTimestamp(3, sqlTimestamp);
             ps.setDouble(4, pedido.getImporte());
             ps.setBoolean(5, pedido.isCobrada());
             List<Pedido> listaDePedidos = new ArrayList<>();
@@ -72,13 +73,13 @@ public class PedidoData {
     }
     
     public void modificarPedido(Pedido pedido) {
-        String sql = "UPDATE producto SET nombre=?, tipoProducto=?, stock=?, precio=?, estado=? WHERE IdProducto=? ";
-
+        String sql = "UPDATE pedido SET idMesa=?, nombreMesero=?, fechaHora=?, importe=?, cobrada=? WHERE idPedido=? ";
+        java.sql.Timestamp sqlTimestamp = java.sql.Timestamp.valueOf(pedido.getFechaHora());
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, pedido.getIdMesa());
             ps.setString(2, pedido.getNombreMesero());
-            ps.setDate(3, Date.from((pedido.getFechaHora().atZone(ZoneId.systemDefault()))).toInstant);//convierto de localdate a zonedate para poder hacerlo instant y poder pasarlo a date
+            ps.setTimestamp(3, sqlTimestamp);
             ps.setDouble(4, pedido.getImporte());
             ps.setBoolean(5, pedido.isCobrada());
 
