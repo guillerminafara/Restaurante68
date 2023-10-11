@@ -14,13 +14,13 @@ public class Producto {
     String tipoDeProducto;
     String nombre;
     int Stock;
-    int precio;
+    double precio;
     boolean estado;
 
     public Producto() {
     }
 
-    public Producto(int idProducto, String nombre, String tipoDeProducto, int Stock, int precio, boolean estado) {
+    public Producto(int idProducto, String nombre, String tipoDeProducto, int Stock, double precio, boolean estado) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.tipoDeProducto = tipoDeProducto;
@@ -29,7 +29,7 @@ public class Producto {
         this.estado = estado;
     }
 
-    public Producto(String nombre, String tipoDeProducto, int Stock, int precio, boolean estado) {
+    public Producto(String nombre, String tipoDeProducto, int Stock, double precio, boolean estado) {
         this.nombre = nombre;
         this.tipoDeProducto = tipoDeProducto;
 
@@ -70,11 +70,11 @@ public class Producto {
         this.Stock = Stock;
     }
 
-    public int getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 
