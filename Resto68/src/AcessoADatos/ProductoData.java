@@ -30,14 +30,14 @@ public class ProductoData {
     }
 
     public void agregarProducto(Producto producto) {
-        String sql = "INSERT INTO producto (Nombre, TipoProducto, Stock, Precio, Estado)VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO producto (nombreProducto, TipoProducto, Stock, Precio, Estado)VALUES(?,?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, producto.getNombre());
             ps.setString(2, producto.getTipoDeProducto());
             ps.setInt(3, producto.getStock());
-            ps.setInt(4, producto.getPrecio());
+            ps.setDouble(4, producto.getPrecio());
             ps.setBoolean(5, producto.isEstado());
 
             List<Producto> listaProductos = new ArrayList<>();
@@ -70,14 +70,14 @@ public class ProductoData {
     }
 
     public void modificarProducto(Producto producto) {
-        String sql = "UPDATE producto SET nombre=?, tipoProducto=?, stock=?, precio=?, estado=? WHERE IdProducto=? ";
+        String sql = "UPDATE producto SET nombreProducto=?, tipoProducto=?, stock=?, precio=?, estado=? WHERE IdProducto=? ";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, producto.getNombre());
             ps.setString(2, producto.getTipoDeProducto());
             ps.setInt(3, producto.getStock());
-            ps.setInt(4, producto.getPrecio());
+            ps.setDouble(4, producto.getPrecio());
             ps.setBoolean(5, producto.isEstado());
             ps.setInt(6, producto.getIdProducto());
 
@@ -110,7 +110,7 @@ public class ProductoData {
 
     public Producto buscarProducto(int idProducto) {
         Producto producto = null;
-        String sql = "SELECT tipoDeProducto, nombre, stock, precio, estado FROM producto WHERE idProducto = ?";
+        String sql = "SELECT tipoProducto, nombreProducto, stock, precio, estado FROM producto WHERE idProducto = ?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -120,10 +120,10 @@ public class ProductoData {
             if (rs.next()) {
                 producto = new Producto();
                 producto.setIdProducto(idProducto);
-                producto.setTipoDeProducto(rs.getString("tipoDeProducto"));
-                producto.setNombre(rs.getString("nombre"));
+                producto.setTipoDeProducto(rs.getString("tipoProducto"));
+                producto.setNombre(rs.getString("nombreProducto"));
                 producto.setStock(rs.getInt("stock"));
-                producto.setPrecio(rs.getInt("precio"));
+                producto.setPrecio(rs.getDouble("precio"));
                 producto.setEstado(true);
             } else {
                 JOptionPane.showMessageDialog(null, "No existe el producto buscado");
@@ -137,36 +137,19 @@ public class ProductoData {
         return producto;
 
     }
-    public Producto buscarProductoPorTipo(String tipoDeProducto) {
-        Producto producto = null;
-        String sql = "SELECT idProducto, nombre, stock, precio, estado FROM producto WHERE tipoDeProducto = ?";
-        PreparedStatement ps = null;
-        
-        try {
-            ps = con.prepareStatement(sql);
-            ps.setString(1, tipoDeProducto);
-            ResultSet rs= ps.executeQuery();
-            
-            if(rs.next()){
-                producto = new Producto();
-                producto.setTipoDeProducto(tipoDeProducto);
-                producto.setIdProducto(rs.getInt("idProducto"));
-                producto.setNombre(rs.getString("nombre"));
-                producto.setStock(rs.getInt("stock"));
-                producto.setPrecio(rs.getInt("precio"));
-                producto.setEstado(rs.getBoolean("estado")); //REVISAR SI SE PUEDE HACER ASÍ
-            }else{
-                JOptionPane.showMessageDialog(null, "No existe este producto en la tabla");
+
+    public List<Producto> buscarProductoPorTipo(String tipoDeProducto) {
+        //AGREGAR LISTA
+        List<Producto> listaProductos = new ArrayList<>();
+        for(Producto productos :this.listarProductos())//acá uso el método de listar productos ue hice más abajo
+            if(tipoDeProducto.equals(productos.getTipoDeProducto())){
+                listaProductos.add(productos);
             }
-            rs.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se pudo ingresar a la tabla");
-        }
-        
-        return producto;
+
+        return listaProductos;
 
     }
-    
+
     public List<Producto> listarProductos() {
         List<Producto> productoList = new ArrayList<>();
 
@@ -179,10 +162,10 @@ public class ProductoData {
             while (rs.next()) {
                 Producto producto = new Producto();
                 producto.setIdProducto(rs.getInt("idProducto"));
-                producto.setNombre(rs.getString("nombre"));
+                producto.setNombre(rs.getString("nombreProducto"));
                 producto.setTipoDeProducto(rs.getString("tipoProducto"));
                 producto.setStock(rs.getInt("stock"));
-                producto.setPrecio(rs.getInt("precio"));
+                producto.setPrecio(rs.getDouble("precio"));
                 producto.setEstado(rs.getBoolean("estado"));
                 productoList.add(producto);
             }
@@ -195,101 +178,88 @@ public class ProductoData {
         return productoList;
     }
 
-    
-    public List<Producto> buscarProductosMenorAMayorPrecio(int precio){
+    public List<Producto> buscarProductosMenorAMayorPrecio() {
         List<Producto> listaProductos = new ArrayList<>();
-        
-        String sql = "SELECT idProducto, nombre, stock, estado FROM producto ORDER BY precio ASC LIMIT 1";//para ordenar de menor a mayor precio
+
+        String sql = "SELECT * FROM producto";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, precio);
-            ResultSet rs= ps.executeQuery();
-                        
-            if(rs.next()){
-               Producto producto = new Producto();
-                producto.setPrecio(precio);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Producto producto = new Producto();
+
                 producto.setIdProducto(rs.getInt("idProducto"));
-                producto.setNombre(rs.getString("nombre"));
+                producto.setNombre(rs.getString("nombreProducto"));
+                producto.setTipoDeProducto(rs.getString("tipoProducto"));
                 producto.setStock(rs.getInt("stock"));
-                producto.setPrecio(rs.getInt("precio"));
+                producto.setPrecio(rs.getDouble("precio"));
                 producto.setEstado(rs.getBoolean("estado")); //REVISAR SI SE PUEDE HACER ASÍ
+                System.out.println(".");
                 listaProductos.add(producto);
-            }else{
-                JOptionPane.showMessageDialog(null, "No existe este producto en la tabla");
             }
+
+
             rs.close();
         } catch (SQLException ex) {
             //Logger.getLogger(ProductoData1.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se pudo ingresar a la tabla");
-        } 
+        }
         // Ordena la lista de productos por precio ascendente
-    Collections.sort(listaProductos, (p1, p2) -> Integer.compare(p1.getPrecio(), p2.getPrecio()));
+        Collections.sort(listaProductos, comparaPrecio);//ORDENA
+        return listaProductos;
+    }
+    
+    public List<Producto> buscarProductosMayorAMenorPrecio() {
+        List<Producto> listaProductos = new ArrayList<>();
+
+        String sql = "SELECT * FROM producto";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Producto producto = new Producto();
+
+                producto.setIdProducto(rs.getInt("idProducto"));
+                producto.setNombre(rs.getString("nombreProducto"));
+                producto.setTipoDeProducto(rs.getString("tipoProducto"));
+                producto.setStock(rs.getInt("stock"));
+                producto.setPrecio(rs.getDouble("precio"));
+                producto.setEstado(rs.getBoolean("estado")); //REVISAR SI SE PUEDE HACER ASÍ
+                System.out.println(".");
+                listaProductos.add(producto);
+            }
+
+
+            rs.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(ProductoData1.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se pudo ingresar a la tabla");
+        }
+        // Ordena la lista de productos por precio ascendente
+        Collections.sort(listaProductos, comparaPrecioMayorAMenor);//ORDENA
         return listaProductos;
     }
 
-   public static Comparator<Producto> comparaNombre = new Comparator<Producto>() { //SUBCLASE. Lo que está entre <> es el tipo.
+    public static Comparator<Producto> comparaNombre = new Comparator<Producto>() { //SUBCLASE. Lo que está entre <> es el tipo.
         @Override
         public int compare(Producto p1, Producto p2) {
             return p1.getNombre().compareTo(p2.getNombre()); //compara el nmbre de un producto con el otro.
         }
     };
-   //    public ClaseProducto buscarProductoConPrecioMenorA2000(int precio){//quise hacer yo
-//        //List<ClaseProducto> listarProductosPorPrecio = new ArrayList<>();
-//        String sql = "SELECT idProducto, nombre, stock, estado FROM producto WHERE precio = ?";
-//        
-//        PreparedStatement ps;
-//        try {
-//            ps = con.prepareStatement(sql);
-//            ps.setInt(1, precio);
-//            ResultSet rs= ps.executeQuery();
-//            ClaseProducto producto = new ClaseProducto();
-//            if(rs.next()){
-//                
-//                if(precio>=0 && precio<=2000){
-//                
-//                producto.setPrecio(precio);
-//                producto.setIdProducto(rs.getInt("idProducto"));
-//                producto.setNombre(rs.getString("nombre"));
-//                producto.setStock(rs.getInt("stock"));
-//                producto.setPrecio(rs.getInt("precio"));
-//                producto.setEstado(rs.getBoolean("estado"));
-//                
-//                }
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(ProductoData1.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return null;
-            
-        
-    }
-    /*
-    public ClaseProducto buscarProductoConPrecioMenorA2000() {//me lo corrigio chatgpt
-    ClaseProducto producto = null;
-    String sql = "SELECT idProducto, nombre, stock, precio, estado FROM producto WHERE precio <= 2000 ORDER BY precio ASC LIMIT 1";
-
-    try {
-        PreparedStatement ps = con.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-
-        if (rs.next()) {
-            producto = new ClaseProducto();
-            producto.setIdProducto(rs.getInt("idProducto"));
-            producto.setNombre(rs.getString("nombre"));
-            producto.setStock(rs.getInt("stock"));
-            producto.setPrecio(rs.getInt("precio"));
-            producto.setEstado(rs.getBoolean("estado"));
-        } else {
-            // Puedes manejar el caso en el que no se encuentren productos con precio menor a 2000 aquí.
+    public static Comparator<Producto> comparaPrecio = new Comparator<Producto>() { //SUBCLASE. Lo que está entre <> es el tipo.
+        @Override
+        public int compare(Producto p1, Producto p2) {
+            return Double.compare(p1.getPrecio(), p2.getPrecio());//compara el precio de un producto con el otro.
         }
-
-        rs.close();
-    } catch (SQLException ex) {
-        // Maneja la SQLException según tus necesidades.
-        Logger.getLogger(ProductoData1.class.getName()).log(Level.SEVERE, null, ex);
-    }
-
-    return producto;
+    };
+    public static Comparator<Producto> comparaPrecioMayorAMenor = new Comparator<Producto>() { //SUBCLASE. Lo que está entre <> es el tipo.
+        @Override
+        public int compare(Producto p1, Producto p2) {
+            return Double.compare(p2.getPrecio(), p1.getPrecio());//compara el precio de un producto con el otro.
+        }
+    };
 }
-    */
-
