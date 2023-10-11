@@ -97,6 +97,7 @@ public class PedidoData {
     public List<Pedido> listarPedidos(){
         List<Pedido> listaDePedidos = new ArrayList<>();
         String sql = "SELECT * FROM pedido";
+       
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -104,8 +105,9 @@ public class PedidoData {
                 Pedido pedido = new Pedido();
                 pedido.setIdPedido(rs.getInt("idPedido"));
                 pedido.setIdMesa(rs.getInt("idMesa"));
-                pedido.setNombreMesero(rs.getString("nombreMesero"));
-                pedido.setFechaHora((rs.getDate("fechaHora").toInstant().atZone(ZoneId.systemDefault())).toLocalDateTime());//convierto a zonedate luego a localdate
+                pedido.setNombreMesero(rs.getString("mesero"));
+                java.sql.Timestamp sqlTimestamp = rs.getTimestamp("fechaHora");
+                pedido.setFechaHora(sqlTimestamp.toLocalDateTime());
                 pedido.setImporte(rs.getDouble("importe"));
                 pedido.setCobrada(rs.getBoolean("cobrada"));
                 listaDePedidos.add(pedido);                
