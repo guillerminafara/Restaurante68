@@ -184,7 +184,7 @@ public class ProductoData {
         String sql = "SELECT * FROM producto";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-//            ps.setInt(1, precio);
+
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -199,7 +199,7 @@ public class ProductoData {
                 System.out.println(".");
                 listaProductos.add(producto);
             }
-//                JOptionPane.showMessageDialog(null, "No existe este producto en la tabla");
+
 
             rs.close();
         } catch (SQLException ex) {
@@ -208,6 +208,39 @@ public class ProductoData {
         }
         // Ordena la lista de productos por precio ascendente
         Collections.sort(listaProductos, comparaPrecio);//ORDENA
+        return listaProductos;
+    }
+    
+    public List<Producto> buscarProductosMayorAMenorPrecio() {
+        List<Producto> listaProductos = new ArrayList<>();
+
+        String sql = "SELECT * FROM producto";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Producto producto = new Producto();
+
+                producto.setIdProducto(rs.getInt("idProducto"));
+                producto.setNombre(rs.getString("nombreProducto"));
+                producto.setTipoDeProducto(rs.getString("tipoProducto"));
+                producto.setStock(rs.getInt("stock"));
+                producto.setPrecio(rs.getDouble("precio"));
+                producto.setEstado(rs.getBoolean("estado")); //REVISAR SI SE PUEDE HACER ASÍ
+                System.out.println(".");
+                listaProductos.add(producto);
+            }
+
+
+            rs.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(ProductoData1.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se pudo ingresar a la tabla");
+        }
+        // Ordena la lista de productos por precio ascendente
+        Collections.sort(listaProductos, comparaPrecioMayorAMenor);//ORDENA
         return listaProductos;
     }
 
@@ -221,6 +254,12 @@ public class ProductoData {
         @Override
         public int compare(Producto p1, Producto p2) {
             return Double.compare(p1.getPrecio(), p2.getPrecio());//compara el precio de un producto con el otro.
+        }
+    };
+    public static Comparator<Producto> comparaPrecioMayorAMenor = new Comparator<Producto>() { //SUBCLASE. Lo que está entre <> es el tipo.
+        @Override
+        public int compare(Producto p1, Producto p2) {
+            return Double.compare(p2.getPrecio(), p1.getPrecio());//compara el precio de un producto con el otro.
         }
     };
 }
