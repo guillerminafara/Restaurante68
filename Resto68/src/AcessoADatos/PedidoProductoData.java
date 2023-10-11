@@ -5,6 +5,7 @@
  */
 package AcessoADatos;
 
+import Entidades.Pedido;
 import Entidades.PedidoProducto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +14,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,7 +31,7 @@ public class PedidoProductoData {
 
     }
 
-    public void crearCarrito(PedidoProducto pedprod) {
+    public void crearCarrito(PedidoProducto pedprod) { // ALTA de pedidosProductos
         String sql = "INSERT INTO pedidoproducto (idPedido, idProdcuto, cantidad) VALUES (?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -54,7 +57,7 @@ public class PedidoProductoData {
         }
     }
 
-    public List<PedidoProducto> obtenerCarrito() {
+    public List<PedidoProducto> obtenerCarrito() { // METODO BUSCAR 
         List<PedidoProducto> listaPedProd = new ArrayList<>();
         String sql = "SELECT * FROM pedidoproducto";
         PedidoProducto pedProd = new PedidoProducto();
@@ -74,7 +77,46 @@ public class PedidoProductoData {
         return listaPedProd;
     }
     
-    public List<PedidoProducto> obtenerCarritoXPedido(){
+    public void modificarPedProdXidProd(int idPedido){ // metodo para modificar la cantidad de un producto en un producto 
+        String sql="UPDATE pedidoProducto SET cantidad=? where idPedido=?";
+        PedidoProducto pedProd= new PedidoProducto();
+        try {
+            PreparedStatement ps= con.prepareStatement(sql);
+            ps.setInt(1, pedProd.getCantidad());
+            ps.setInt(2, idPedido);
+            int cargado= ps.executeUpdate();
+            if(cargado==1){
+                 JOptionPane.showMessageDialog(null," La cantidad del producto ha sido actualizada");
+            }else{
+                 JOptionPane.showMessageDialog(null," modificación cancelada");
+               
+            }
+        } catch (SQLException ex) {
+            //Logger.getLogger(PedidoProductoData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null," no es posible ingresar a la tabla pedidoProducto" +  ex.getMessage());
+        }
+        
+        
+    }
+    
+    
+    public List<PedidoProducto> obtenerCarritoXPedido(int idPedido ){ // metodo para devolver info desde la tabla PEDIDOPRDUCTO buscando por idPedido
+        List <PedidoProducto>pedProdList= new ArrayList<>();
+        String sql= "Select * FROM pedidoProducto where idPedido=?";
+        try {
+            PreparedStatement ps= con.prepareStatement(sql);
+            ps.setInt(1, idPedido); // le paso el id con el que vamos a buscar en las listas o tablas
+            ResultSet rs= ps.executeQuery(); //traigo info de la tabla
+            while(rs.next()){
+                PedidoProducto pedProd= new PedidoProducto();
+                pedProd.setIdPedidoProducto(rs.getInt("idPedidoProducto"));
+                pedProd.setIdProducto(rs.getInt("idProducto"));
+                pedProd.setCantidad(rs.getInt("cantidad"));
+                
+            }
+        } catch (SQLException ex) {
+            //Logger.getLogger(PedidoProductoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return null;
         
         
