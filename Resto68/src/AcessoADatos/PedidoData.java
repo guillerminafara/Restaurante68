@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -132,6 +134,36 @@ public class PedidoData {
         
         return listaDePedidos;
     }
+    
+    public Pedido buscarPedidoPorId(int idPedido){
+        Pedido pedido = null;
+        String sql = "SELECT idMesa, mesero, fechaHora, importe, cobradaDROM pedido WHERE idPedido=? ";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idPedido);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                pedido = new Pedido();
+                pedido.setIdPedido(idPedido);
+                pedido.setIdMesa(rs.getInt("idMesa"));
+                pedido.setNombreMesero(rs.getString("mesero"));
+                java.sql.Timestamp sqlTimestamp = rs.getTimestamp("fechaHora");
+                pedido.setFechaHora(sqlTimestamp.toLocalDateTime());
+                pedido.setImporte(rs.getDouble("importe"));
+                pedido.setCobrada(rs.getBoolean("cobrada"));
+            }else {
+                JOptionPane.showMessageDialog(null, "No existe el pedido buscado");                
+            }
+            ps.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PedidoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return pedido;
+        
+    }
+    
     public List<Pedido> listarPedidosPorMesa(int idMesa){
         List<Pedido> pedidosPorMesa = new ArrayList<>();
         for(Pedido pedido :this.listarPedidos()){
