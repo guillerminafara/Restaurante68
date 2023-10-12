@@ -32,7 +32,7 @@ public class PedidoProductoData {
     }
 
     public void crearCarrito(PedidoProducto pedprod) { // ALTA de pedidosProductos
-        String sql = "INSERT INTO pedidoproducto (idPedido, idProdcuto, cantidad) VALUES (?,?,?)";
+        String sql = "INSERT INTO pedidoproducto (idPedido, idProducto, cantidad) VALUES (?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, pedprod.getIdPedido());
@@ -43,16 +43,16 @@ public class PedidoProductoData {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 pedprod.setIdPedidoProducto(rs.getInt(1));
-                JOptionPane.showConfirmDialog(null, "agregado correctamente");
+                JOptionPane.showMessageDialog(null, "agregado correctamente");
             } else {
-                JOptionPane.showConfirmDialog(null, "algo está mal, fijate");
+                JOptionPane.showMessageDialog(null, "algo está mal, fijate");
 
             }
             ps.close();
 
         } catch (SQLException ex) {
             //Logger.getLogger(PedidoProductoData.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showConfirmDialog(null, "no se puede ingresar a la tabla pedidoProducto u.u" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "no se puede ingresar a la tabla pedidoProducto u.u" + ex.getMessage());
 
         }
     }
@@ -71,7 +71,7 @@ public class PedidoProductoData {
             ps.close();
         } catch (SQLException ex) {
            // Logger.getLogger(PedidoProductoData.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showConfirmDialog(null, "no se puede ingresar a la tabla pedidoProducto u.u" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "no se puede ingresar a la tabla pedidoProducto u.u" + ex.getMessage());
 
         }
         return listaPedProd;
