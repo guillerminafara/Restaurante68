@@ -102,6 +102,7 @@ public class PedidoProductoData {
     
     public List<PedidoProducto> obtenerCarritoXPedido(int idPedido ){ // metodo para devolver info desde la tabla PEDIDOPRDUCTO buscando por idPedido
         List <PedidoProducto>pedProdList= new ArrayList<>();
+       
         String sql= "Select * FROM pedidoProducto where idPedido=?";
         try {
             PreparedStatement ps= con.prepareStatement(sql);
