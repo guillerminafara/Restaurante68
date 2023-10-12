@@ -30,8 +30,8 @@ public class MesaData {
         ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
     ps.setInt(1, mesa.getIdMesa());
     ps.setInt(2, mesa.getNumero());
-    ps.setBoolean(3, mesa.isEstadoDeMesa());
-    ps.setInt(4, mesa.getCapacidad());
+    ps.setInt(3, mesa.getCapacidad());
+    ps.setBoolean(4, mesa.isEstadoDeMesa());
     
     ps.executeUpdate();
     ResultSet rs = ps.getGeneratedKeys();
@@ -46,6 +46,20 @@ public class MesaData {
             JOptionPane.showConfirmDialog(null, "no se puede ingresar a la tabla pedidoProducto u.u" + ex.getMessage());
 
         }
+    }
+    public void estadoMesa(int id) {
+        String sql = "UPDATE mesa SET estado=0 WHERE idProducto = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Mesa liberada");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al modificar el estado de la mesa");
+        }
+
     }
     
 }
