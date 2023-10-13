@@ -141,20 +141,102 @@ public class ProductoData {
     public List<Producto> buscarProductoPorTipo(String tipoDeProducto) {
         //AGREGAR LISTA
         List<Producto> listaProductos = new ArrayList<>();
-        for(Producto productos :this.listarProductos())//acá uso el método de listar productos ue hice más abajo
-            if(tipoDeProducto.equals(productos.getTipoDeProducto())){
+        for (Producto productos : this.listarProductos())//acá uso el método de listar productos que hice más abajo
+        {
+            if (tipoDeProducto.equals(productos.getTipoDeProducto())) {
                 listaProductos.add(productos);
             }
+        }
         return listaProductos;
     }
-    
-    public List<Producto> buscarProductoPorEstado(String tipoDeProducto) {
-        //AGREGAR LISTA
+
+    public List<Producto> buscarProductoPorNombre(String nombre) {
         List<Producto> listaProductos = new ArrayList<>();
-        for(Producto productos :this.listarProductos())//acá uso el método de listar productos ue hice más abajo
-            if(tipoDeProducto.equals(productos.getTipoDeProducto())){
+        for (Producto productos : this.listarProductos())//acá uso el método de listar productos que hice más abajo
+        {
+            if (nombre.equals(productos.getNombre())) {
                 listaProductos.add(productos);
             }
+        }
+
+        if (listaProductos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No se encontraron productos con ese nombre");
+        }
+        return listaProductos;
+    }
+
+    public List<Producto> buscarProductoPorEstado(boolean estado) {
+        List<Producto> listaProductos = new ArrayList<>();
+        for (Producto productos : this.listarProductos())//acá uso el método de listar productos que hice más abajo
+        {
+            if (productos.isEstado() == estado) {
+                listaProductos.add(productos);
+            }
+        }
+        return listaProductos;
+    }
+
+    public List<Producto> buscarProductosMenorAMayorPrecio() {
+        List<Producto> listaProductos = new ArrayList<>();
+
+        String sql = "SELECT * FROM producto";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Producto producto = new Producto();
+
+                producto.setIdProducto(rs.getInt("idProducto"));
+                producto.setNombre(rs.getString("nombreProducto"));
+                producto.setTipoDeProducto(rs.getString("tipoProducto"));
+                producto.setStock(rs.getInt("stock"));
+                producto.setPrecio(rs.getDouble("precio"));
+                producto.setEstado(rs.getBoolean("estado")); //REVISAR SI SE PUEDE HACER ASÍ
+                System.out.println(".");
+                listaProductos.add(producto);
+            }
+
+            rs.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(ProductoData1.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se pudo ingresar a la tabla");
+        }
+        // Ordena la lista de productos por precio ascendente
+        Collections.sort(listaProductos, comparaPrecio);//ORDENA
+        return listaProductos;
+    }
+
+    public List<Producto> buscarProductosMayorAMenorPrecio() {
+        List<Producto> listaProductos = new ArrayList<>();
+
+        String sql = "SELECT * FROM producto";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Producto producto = new Producto();
+
+                producto.setIdProducto(rs.getInt("idProducto"));
+                producto.setNombre(rs.getString("nombreProducto"));
+                producto.setTipoDeProducto(rs.getString("tipoProducto"));
+                producto.setStock(rs.getInt("stock"));
+                producto.setPrecio(rs.getDouble("precio"));
+                producto.setEstado(rs.getBoolean("estado")); //REVISAR SI SE PUEDE HACER ASÍ
+                System.out.println(".");
+                listaProductos.add(producto);
+            }
+
+            rs.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(ProductoData1.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se pudo ingresar a la tabla");
+        }
+        // Ordena la lista de productos por precio ascendente
+        Collections.sort(listaProductos, comparaPrecioMayorAMenor);//ORDENA
         return listaProductos;
     }
 
@@ -184,72 +266,6 @@ public class ProductoData {
         }
 
         return productoList;
-    }
-
-    public List<Producto> buscarProductosMenorAMayorPrecio() {
-        List<Producto> listaProductos = new ArrayList<>();
-
-        String sql = "SELECT * FROM producto";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Producto producto = new Producto();
-
-                producto.setIdProducto(rs.getInt("idProducto"));
-                producto.setNombre(rs.getString("nombreProducto"));
-                producto.setTipoDeProducto(rs.getString("tipoProducto"));
-                producto.setStock(rs.getInt("stock"));
-                producto.setPrecio(rs.getDouble("precio"));
-                producto.setEstado(rs.getBoolean("estado")); //REVISAR SI SE PUEDE HACER ASÍ
-                System.out.println(".");
-                listaProductos.add(producto);
-            }
-
-
-            rs.close();
-        } catch (SQLException ex) {
-            //Logger.getLogger(ProductoData1.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "No se pudo ingresar a la tabla");
-        }
-        // Ordena la lista de productos por precio ascendente
-        Collections.sort(listaProductos, comparaPrecio);//ORDENA
-        return listaProductos;
-    }
-    
-    public List<Producto> buscarProductosMayorAMenorPrecio() {
-        List<Producto> listaProductos = new ArrayList<>();
-
-        String sql = "SELECT * FROM producto";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Producto producto = new Producto();
-
-                producto.setIdProducto(rs.getInt("idProducto"));
-                producto.setNombre(rs.getString("nombreProducto"));
-                producto.setTipoDeProducto(rs.getString("tipoProducto"));
-                producto.setStock(rs.getInt("stock"));
-                producto.setPrecio(rs.getDouble("precio"));
-                producto.setEstado(rs.getBoolean("estado")); //REVISAR SI SE PUEDE HACER ASÍ
-                System.out.println(".");
-                listaProductos.add(producto);
-            }
-
-
-            rs.close();
-        } catch (SQLException ex) {
-            //Logger.getLogger(ProductoData1.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "No se pudo ingresar a la tabla");
-        }
-        // Ordena la lista de productos por precio ascendente
-        Collections.sort(listaProductos, comparaPrecioMayorAMenor);//ORDENA
-        return listaProductos;
     }
 
     public static Comparator<Producto> comparaNombre = new Comparator<Producto>() { //SUBCLASE. Lo que está entre <> es el tipo.
