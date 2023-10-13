@@ -145,9 +145,17 @@ public class ProductoData {
             if(tipoDeProducto.equals(productos.getTipoDeProducto())){
                 listaProductos.add(productos);
             }
-
         return listaProductos;
-
+    }
+    
+    public List<Producto> buscarProductoPorEstado(String tipoDeProducto) {
+        //AGREGAR LISTA
+        List<Producto> listaProductos = new ArrayList<>();
+        for(Producto productos :this.listarProductos())//acá uso el método de listar productos ue hice más abajo
+            if(tipoDeProducto.equals(productos.getTipoDeProducto())){
+                listaProductos.add(productos);
+            }
+        return listaProductos;
     }
 
     public List<Producto> listarProductos() {

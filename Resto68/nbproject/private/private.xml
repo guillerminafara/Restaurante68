@@ -3,7 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< Updated upstream
             <file>file:/C:/Users/Muke/OneDrive/Documentos/GitHub/Proyecto%20Final/Restaurante68/Resto68/src/AcessoADatos/PedidoData.java</file>
+=======
+            <file>file:/C:/Users/Public/Documents/Abril%20CURSO%20PROGRAMACION%202022/Desarrollando%20una%20aplicación/Restaurante68/Resto68/src/AcessoADatos/ProductoData.java</file>
+            <file>file:/C:/Users/Public/Documents/Abril%20CURSO%20PROGRAMACION%202022/Desarrollando%20una%20aplicación/Restaurante68/Resto68/src/resto68/Resto68.java</file>
+            <file>file:/C:/Users/Public/Documents/Abril%20CURSO%20PROGRAMACION%202022/Desarrollando%20una%20aplicación/Restaurante68/Resto68/src/Entidades/Producto.java</file>
+>>>>>>> Stashed changes
         </group>
     </open-files>
 </project-private>
