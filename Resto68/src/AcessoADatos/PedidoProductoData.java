@@ -24,20 +24,21 @@ import javax.swing.JOptionPane;
  * @author Fran-PC
  */
 public class PedidoProductoData {
+
     private Connection con = null;
     ProductoData productoData = new ProductoData();
-    PedidoData pedidoData= new PedidoData();
+    PedidoData pedidoData = new PedidoData();
 
     public PedidoProductoData() {
         con = Conexion.getConexion();
 
     }
 
-   public void crearCarrito(PedidoProducto pedprod) { // ALTA de pedidosProductos    (FALTA)          
+    public void crearCarrito(PedidoProducto pedprod) { // ALTA de pedidosProductos    (FALTA)          
         List<Pedido> pedList = new ArrayList();
-        pedList = pedidoData.listarPedidosPorCobrada(true); //recibe los id de los pedidos activos
+        pedList = pedidoData.listarPedidosPorCobrada(true); //recibe los id de los pedidos cobrados?, que vamos a comparar con el idPedido que va a ingresar
         List<Producto> prodList = new ArrayList();
-        //prodList= productoData. listarProducto por estado;
+        prodList = productoData.buscarProductoPorEstado(true); //devuelve lista de productos con stock
         List<PedidoProducto> pedprodList = new ArrayList();
         pedprodList = this.obtenerCarrito();
         boolean bandera = false;
@@ -49,14 +50,30 @@ public class PedidoProductoData {
             ps.setInt(1, pedprod.getIdPedido());
             ps.setInt(2, pedprod.getIdProducto());
             ps.setInt(3, pedprod.getCantidad());
+            
             for (Pedido listaPed : pedList) {
                 if (listaPed.getIdPedido() == pedprod.getIdPedido()) { // verificacio
-                    bandera = true; //si no esta disponible sera 
+                    bandera = false; //si el pedido está cobrado y coincide con el idped que recibimos no debe poder cargar
+                    JOptionPane.showMessageDialog(null, "pedido ya cobrado, inicia un nuevo pedido");
+                    break;
+                } else {
+                    bandera = true; // puede agregar
+
+                }
+            }
+            for (Producto listaProd : prodList) {
+                if (listaProd.getIdProducto() == pedprod.getIdProducto()) {
+                    bandera2 = true;//{ si el producto tiene stock(está activo) y coincide con el idprod que intentamos agregar, debe poder cargar
+
+                } else {
+                    bandera2 = false;
+                    JOptionPane.showMessageDialog(null, "no contamos con ese producto");
+                    break;
                 }
             }
             // for para recorrer lista que viene desde producto con id de productos activos... 
 
-            if (!bandera ) {
+            if (!bandera && bandera2) {
                 ps.executeUpdate();
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()) {
@@ -67,7 +84,7 @@ public class PedidoProductoData {
 
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "no contamos con ese producto");
+                //  JOptionPane.showMessageDialog(null, "no contamos con ese producto");
             }
             ps.close();
 
@@ -78,7 +95,7 @@ public class PedidoProductoData {
         }
     }
 
-   public List<PedidoProducto> obtenerCarrito() { // METODO BUSCAR  OK
+    public List<PedidoProducto> obtenerCarrito() { // METODO BUSCAR  OK
         List<PedidoProducto> listaPedProd = new ArrayList<>();
         String sql = "SELECT * FROM pedidoproducto";
         PedidoProducto pedProd = null;
@@ -102,7 +119,7 @@ public class PedidoProductoData {
         }
         return listaPedProd;
     }
-    
+
     public List<PedidoProducto> buscarXPedido(int idPedido) {
         List<PedidoProducto> listaPedProd = new ArrayList<>();
         String sql = "SELECT * FROM pedidoproducto where idPedido=?";
@@ -128,8 +145,8 @@ public class PedidoProductoData {
 
         return listaPedProd;
     }
-    
-   public List<PedidoProducto> buscarXProducto(int idProducto) {
+
+    public List<PedidoProducto> buscarXProducto(int idProducto) {
         List<PedidoProducto> listaProd = new ArrayList<>();
         String sql = "SELECT * FROM pedidoproducto where idProducto=?";
         try {
@@ -154,8 +171,7 @@ public class PedidoProductoData {
 
         return listaProd;
     }
-        
-        
+
     public List<PedidoProducto> buscarXCantidad(int cantidad) {
         List<PedidoProducto> listaCantidad = new ArrayList<>();
         String sql = "SELECT * FROM pedidoproducto where cantidad=?";
@@ -181,7 +197,8 @@ public class PedidoProductoData {
 
         return listaCantidad;
     }
-     public List<PedidoProducto> obtenerCarritoXPedido(int idPedido) { // metodo para devolver info desde la tabla PEDIDOPRDUCTO buscando por idPedido OK
+
+    public List<PedidoProducto> obtenerCarritoXPedido(int idPedido) { // metodo para devolver info desde la tabla PEDIDOPRDUCTO buscando por idPedido OK
         List<PedidoProducto> pedProdList = new ArrayList<>();
 
         String sql = "Select * FROM pedidoProducto where idPedido=?";
@@ -205,7 +222,8 @@ public class PedidoProductoData {
         return pedProdList;
 
     }
-     public void modificarPedProd(PedidoProducto pedProd) { // metodo para modificar la cantidad de un producto EN PEDPROD (falta)
+
+    public void modificarPedProd(PedidoProducto pedProd) { // metodo para modificar la cantidad de un producto EN PEDPROD (falta)
         List<Pedido> pedList = new ArrayList();
         pedList = pedidoData.listarPedidosPorCobrada(true);
         String sql = "UPDATE pedidoProducto SET idPedido=? idProducto=? cantidad=? where idPedidoProducto=?";
@@ -247,7 +265,7 @@ public class PedidoProductoData {
     public void eliminarCarrito(int idProducto, int idPedido) { // ver idProducto (FALTA)
         List<Pedido> pedidoList = new ArrayList<>();
         pedidoList = pedidoData.listarPedidosPorCobrada(true);
-        
+
         boolean bandera = false;
         String sql = "DELETE FROM pedidoproducto WHERE idProducto = ? AND idPedido=?";
         try {
@@ -255,7 +273,7 @@ public class PedidoProductoData {
             ps.setInt(1, idProducto);
             ps.setInt(2, idPedido);
             for (Pedido lista : pedidoList) {
-                if (lista.getIdPedido()== idPedido ) {
+                if (lista.getIdPedido() == idPedido) {
                     bandera = true;                     // ENTONCES mesa cobrada, no puede eliminarse el pedido 
                 }
             }
@@ -268,7 +286,7 @@ public class PedidoProductoData {
                     JOptionPane.showMessageDialog(null, " no se ha podido eliminar el pedido"); //agregar verificacion si pagado o no. si se encuentran pendiientes
 
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, " no se puede eliminar un pedido ya cobrado");
             }
             ps.close();
