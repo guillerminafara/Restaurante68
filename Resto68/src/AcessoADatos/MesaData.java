@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -47,14 +49,14 @@ public class MesaData {
 
         }
     }
-    public void estadoMesa(int id) {
+    public void eliminarMesa(int id) {
         String sql = "UPDATE mesa SET estado=0 WHERE idMesa = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             int exito = ps.executeUpdate();
             if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Mesa liberada");
+                JOptionPane.showMessageDialog(null, "Mesa eliminada correctamente");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al modificar el estado de la mesa");
@@ -64,25 +66,53 @@ public class MesaData {
     
     public Mesa BuscarMesa(int idMesa){
     Mesa mesa = null;
-    String sql = "SELECT numero, capacidad, estado WHERE idMesa = ?";
+    String sql = "SELECT numero, capacidad, estado FROM mesa WHERE idMesa = ?";
     PreparedStatement ps = null;
-    try {
+    try { 
     ps = con.prepareStatement(sql);
     ps.setInt(1, idMesa);
-    Resultset rs = ps.executeQuery();
+    ResultSet rs = ps.executeQuery();
     if (rs.next()) {
     mesa = new Mesa();
     mesa.setIdMesa(idMesa);
     mesa.setCapacidad(rs.getInt("Capacidad"));
     mesa.setNumero(rs.getInt("Numero"));
-    mesa.setEstadoDeMesa(rs.getBoolean("EstadoDeMesa"));
+    mesa.setEstadoDeMesa(rs.getBoolean("Estado"));
     } else {
         JOptionPane.showMessageDialog(null, "No existe tal mesa");
         ps.close();} 
-    catch (SQLException ex){
+    }   catch (SQLException ex) { 
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla" + ex.getMessage());
-            }
+        } 
+    return mesa;
     }
-    
-    
+
+  public void modificarMesa (Mesa mesa){
+      String sql = "UPDATE mesa SET numero=? , capacidad=?, estado=? WHERE idMesa = ?";
+      PreparedStatement ps = null;
+      try {
+          ps = con.prepareStatement(sql);
+          ps.setInt(1, mesa.getNumero());
+          ps.setInt(2, mesa.getCapacidad());
+          ps.setBoolean(3, mesa.isEstadoDeMesa());
+          ps.setInt(4, mesa.getIdMesa());
+         int exito = ps.executeUpdate();
+         if (exito == 1){
+         JOptionPane.showMessageDialog(null, "Mesa modificada correctamente");
+         }
+      } catch (SQLException ex){
+      JOptionPane.showMessageDialog(null, "No se pudo modificar la mesa" + ex.getMessage());
+      }
+      
+  }
+
+
+
+
+
+
+
+
+
+}     
      
