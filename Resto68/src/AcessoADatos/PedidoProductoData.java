@@ -36,7 +36,7 @@ public class PedidoProductoData {
 
     public void crearCarrito(PedidoProducto pedprod) { // ALTA de pedidosProductos    (FALTA)          
         List<Pedido> pedList = new ArrayList();
-        pedList = pedidoData.listarPedidosPorCobrada(true); //recibe los id de los pedidos cobrados?, que vamos a comparar con el idPedido que va a ingresar
+        pedList = pedidoData.listarPedidosPorCobrada(false); //recibe los id de los pedidos cobrados?, que vamos a comparar con el idPedido que va a ingresar
         List<Producto> prodList = new ArrayList();
         prodList = productoData.buscarProductoPorEstado(true); //devuelve lista de productos con stock
         List<PedidoProducto> pedprodList = new ArrayList();
@@ -50,11 +50,11 @@ public class PedidoProductoData {
             ps.setInt(1, pedprod.getIdPedido());
             ps.setInt(2, pedprod.getIdProducto());
             ps.setInt(3, pedprod.getCantidad());
-            
+
             for (Pedido listaPed : pedList) {
                 if (listaPed.getIdPedido() == pedprod.getIdPedido()) { // verificacio
-                    bandera = false; //si el pedido está cobrado y coincide con el idped que recibimos no debe poder cargar
-                    JOptionPane.showMessageDialog(null, "pedido ya cobrado, inicia un nuevo pedido");
+                    //bandera = false; //si el pedido está cobrado y coincide con el idped que recibimos no debe poder cargar
+                    JOptionPane.showMessageDialog(null, "Puede agregar un nuevo pedido(porque no está cerrda la mesa)");
                     break;
                 } else {
                     bandera = true; // puede agregar
@@ -64,12 +64,10 @@ public class PedidoProductoData {
             for (Producto listaProd : prodList) {
                 if (listaProd.getIdProducto() == pedprod.getIdProducto()) {
                     bandera2 = true;//{ si el producto tiene stock(está activo) y coincide con el idprod que intentamos agregar, debe poder cargar
-
-                } else {
-                    bandera2 = false;
-                    JOptionPane.showMessageDialog(null, "no contamos con ese producto");
-                    break;
                 }
+            }
+            if (!bandera2) {
+                JOptionPane.showMessageDialog(null, "No contamos con ese producto");
             }
             // for para recorrer lista que viene desde producto con id de productos activos... 
 
@@ -79,12 +77,14 @@ public class PedidoProductoData {
                 if (rs.next()) {
                     pedprod.setIdPedidoProducto(rs.getInt(1));
                     JOptionPane.showMessageDialog(null, "agregado correctamente");
+
+                    Producto prod = productoData.buscarProducto(pedprod.getIdProducto());
+                    prod.setStock(prod.getStock() - pedprod.getCantidad());//hace que se le reste al stock que hay de prodcutos, la cantidad de productos ue usamos acá.
+                    productoData.modificarProducto(prod);
+
                 } else {
                     JOptionPane.showMessageDialog(null, "algo está mal, fijate");
-
                 }
-            } else {
-                //  JOptionPane.showMessageDialog(null, "no contamos con ese producto");
             }
             ps.close();
 
