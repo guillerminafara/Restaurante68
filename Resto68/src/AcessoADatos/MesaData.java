@@ -48,7 +48,7 @@ public class MesaData {
         }
     }
     public void estadoMesa(int id) {
-        String sql = "UPDATE mesa SET estado=0 WHERE idProducto = ?";
+        String sql = "UPDATE mesa SET estado=0 WHERE idMesa = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -62,4 +62,27 @@ public class MesaData {
 
     }
     
-}
+    public Mesa BuscarMesa(int idMesa){
+    Mesa mesa = null;
+    String sql = "SELECT numero, capacidad, estado WHERE idMesa = ?";
+    PreparedStatement ps = null;
+    try {
+    ps = con.prepareStatement(sql);
+    ps.setInt(1, idMesa);
+    Resultset rs = ps.executeQuery();
+    if (rs.next()) {
+    mesa = new Mesa();
+    mesa.setIdMesa(idMesa);
+    mesa.setCapacidad(rs.getInt("Capacidad"));
+    mesa.setNumero(rs.getInt("Numero"));
+    mesa.setEstadoDeMesa(rs.getBoolean("EstadoDeMesa"));
+    } else {
+        JOptionPane.showMessageDialog(null, "No existe tal mesa");
+        ps.close();} 
+    catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla" + ex.getMessage());
+            }
+    }
+    
+    
+     
