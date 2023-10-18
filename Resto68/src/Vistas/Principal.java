@@ -29,48 +29,100 @@ public class Principal extends javax.swing.JFrame {
 
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        JDPEscritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        JMConsultas = new javax.swing.JMenu();
+        JMIMesa = new javax.swing.JMenuItem();
+        JMIProducto = new javax.swing.JMenuItem();
+        JMIPedido = new javax.swing.JMenuItem();
+        JMIPedidoProducto = new javax.swing.JMenuItem();
+        JMCuenta = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
+        JMSalir = new javax.swing.JMenu();
+        JMISalir = new javax.swing.JMenuItem();
 
         jMenu3.setText("jMenu3");
 
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAutoRequestFocus(false);
 
-        jMenu1.setText("Consultas");
+        javax.swing.GroupLayout JDPEscritorioLayout = new javax.swing.GroupLayout(JDPEscritorio);
+        JDPEscritorio.setLayout(JDPEscritorioLayout);
+        JDPEscritorioLayout.setHorizontalGroup(
+            JDPEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 532, Short.MAX_VALUE)
+        );
+        JDPEscritorioLayout.setVerticalGroup(
+            JDPEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 411, Short.MAX_VALUE)
+        );
 
-        jMenuItem2.setText("Mesa");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        JMConsultas.setText("Consultas");
+        JMConsultas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                JMConsultasActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
 
-        jMenuItem3.setText("Producto");
-        jMenu1.add(jMenuItem3);
+        JMIMesa.setText("Mesa");
+        JMIMesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMIMesaActionPerformed(evt);
+            }
+        });
+        JMConsultas.add(JMIMesa);
 
-        jMenuItem4.setText("Pedido");
-        jMenu1.add(jMenuItem4);
+        JMIProducto.setText("Producto");
+        JMIProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMIProductoActionPerformed(evt);
+            }
+        });
+        JMConsultas.add(JMIProducto);
 
-        jMenuItem5.setText("Pedido de un producto");
-        jMenu1.add(jMenuItem5);
+        JMIPedido.setText("Pedido");
+        JMIPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMIPedidoActionPerformed(evt);
+            }
+        });
+        JMConsultas.add(JMIPedido);
 
-        jMenuBar1.add(jMenu1);
+        JMIPedidoProducto.setText("Pedido de un producto");
+        JMIPedidoProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMIPedidoProductoActionPerformed(evt);
+            }
+        });
+        JMConsultas.add(JMIPedidoProducto);
 
-        jMenu2.setText("Salir");
+        jMenuBar1.add(JMConsultas);
 
-        jMenuItem6.setText("Salir");
-        jMenu2.add(jMenuItem6);
+        JMCuenta.setText("Cuenta");
 
-        jMenuBar1.add(jMenu2);
+        jMenuItem6.setText("TotalPagar");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        JMCuenta.add(jMenuItem6);
+
+        jMenuBar1.add(JMCuenta);
+
+        JMSalir.setText("Salir");
+
+        JMISalir.setText("Salir");
+        JMISalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMISalirActionPerformed(evt);
+            }
+        });
+        JMSalir.add(JMISalir);
+
+        jMenuBar1.add(JMSalir);
 
         setJMenuBar(jMenuBar1);
 
@@ -78,19 +130,68 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(JDPEscritorio)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 277, Short.MAX_VALUE)
+            .addComponent(JDPEscritorio)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void JMIMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIMesaActionPerformed
+        JDPEscritorio.removeAll();
+        JDPEscritorio.repaint();
+        VentanaMesa ventanaMesa = new VentanaMesa();
+        ventanaMesa.setVisible(true);
+        JDPEscritorio.add(ventanaMesa);
+        JDPEscritorio.moveToFront(ventanaMesa);
+    }//GEN-LAST:event_JMIMesaActionPerformed
+
+    private void JMConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMConsultasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_JMConsultasActionPerformed
+
+    private void JMIProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIProductoActionPerformed
+        JDPEscritorio.removeAll();
+        JDPEscritorio.repaint();
+        VentanaProducto ventanaProducto = new VentanaProducto();
+        ventanaProducto.setVisible(true);
+        JDPEscritorio.add(ventanaProducto);
+        JDPEscritorio.moveToFront(ventanaProducto);
+    }//GEN-LAST:event_JMIProductoActionPerformed
+
+    private void JMIPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIPedidoActionPerformed
+        JDPEscritorio.removeAll();
+        JDPEscritorio.repaint();
+        VentanaPedido ventanaPedido = new VentanaPedido();
+        ventanaPedido.setVisible(true);
+        JDPEscritorio.add(ventanaPedido);
+        JDPEscritorio.moveToFront(ventanaPedido);
+    }//GEN-LAST:event_JMIPedidoActionPerformed
+
+    private void JMIPedidoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIPedidoProductoActionPerformed
+        JDPEscritorio.removeAll();
+        JDPEscritorio.repaint();
+        VentanaPedidoProducto ventanaPedidoProducto = new VentanaPedidoProducto();
+        ventanaPedidoProducto.setVisible(true);
+        JDPEscritorio.add(ventanaPedidoProducto);
+        JDPEscritorio.moveToFront(ventanaPedidoProducto);
+    }//GEN-LAST:event_JMIPedidoProductoActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        JDPEscritorio.removeAll();
+        JDPEscritorio.repaint();
+        VentanaCalculos ventanaCalculos = new VentanaCalculos();
+        ventanaCalculos.setVisible(true);
+        JDPEscritorio.add(ventanaCalculos);
+        JDPEscritorio.moveToFront(ventanaCalculos);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void JMISalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMISalirActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_JMISalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -128,15 +229,18 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JDesktopPane JDPEscritorio;
+    private javax.swing.JMenu JMConsultas;
+    private javax.swing.JMenu JMCuenta;
+    private javax.swing.JMenuItem JMIMesa;
+    private javax.swing.JMenuItem JMIPedido;
+    private javax.swing.JMenuItem JMIPedidoProducto;
+    private javax.swing.JMenuItem JMIProducto;
+    private javax.swing.JMenuItem JMISalir;
+    private javax.swing.JMenu JMSalir;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     // End of variables declaration//GEN-END:variables
 }
