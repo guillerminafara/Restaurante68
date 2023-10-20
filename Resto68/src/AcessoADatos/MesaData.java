@@ -39,13 +39,13 @@ public class MesaData {
     ResultSet rs = ps.getGeneratedKeys();
     if (rs.next()) {
     mesa.setIdMesa(rs.getInt(1));
-    JOptionPane.showConfirmDialog(null,"Mesa agregada correctamente");
+    JOptionPane.showMessageDialog(null,"Mesa agregada correctamente");
     } else { 
-        JOptionPane.showConfirmDialog(null,"Algo anda mal");}
+        JOptionPane.showMessageDialog(null,"Algo anda mal");}
     ps.close();
     } catch (SQLException ex) {
             //Logger.getLogger(PedidoProductoData.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showConfirmDialog(null, "no se puede ingresar a la tabla pedidoProducto u.u" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "no se puede ingresar a la tabla pedidoProducto u.u" + ex.getMessage());
 
         }
     }
