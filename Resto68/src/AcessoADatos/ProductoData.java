@@ -30,7 +30,7 @@ public class ProductoData {
     }
 
     public void agregarProducto(Producto producto) {
-        String sql = "INSERT INTO producto (nombreProducto, TipoProducto, Stock, Precio, Estado)VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO producto (nombreProducto, tipoProducto, stock, precio, estado)VALUES(?,?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -38,11 +38,8 @@ public class ProductoData {
             ps.setString(2, producto.getTipoDeProducto());
             ps.setInt(3, producto.getStock());
             ps.setDouble(4, producto.getPrecio());
-            if (producto.getStock() == 0) {
-                ps.setBoolean(5, false);
-            } else {
-                ps.setBoolean(5, producto.isEstado());
-            }
+            ps.setBoolean(5, producto.isEstado());
+            
 
             List<Producto> listaProductos = new ArrayList<>();
             listaProductos = this.listarProductos();
