@@ -44,9 +44,9 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
         JRBEstadoProducto = new javax.swing.JRadioButton();
         JBAgregarProducto = new javax.swing.JButton();
         JBModificar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        JBLimpiar = new javax.swing.JButton();
         JBSalir = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        JBBuscarPorId = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
@@ -90,7 +90,12 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton3.setText("Limpiar");
+        JBLimpiar.setText("Limpiar");
+        JBLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBLimpiarActionPerformed(evt);
+            }
+        });
 
         JBSalir.setText("Salir");
         JBSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -99,7 +104,12 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton6.setText("Buscar");
+        JBBuscarPorId.setText("Buscar por Id");
+        JBBuscarPorId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBBuscarPorIdActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -128,10 +138,8 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(JBModificar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton6)
-                        .addGap(18, 18, 18)
+                        .addComponent(JBLimpiar)
+                        .addGap(107, 107, 107)
                         .addComponent(JBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(180, 180, 180)
@@ -157,11 +165,13 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
                             .addComponent(JTFNombreProducto)
                             .addComponent(JTFPrecioProducto)
                             .addComponent(JTFStockProducto)
-                            .addComponent(JRBEstadoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(JRBEstadoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
+                        .addComponent(JBBuscarPorId))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,7 +185,9 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
                         .addComponent(jLabel4)
                         .addGap(20, 20, 20))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(JTFIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(JTFIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JBBuscarPorId))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(JTFTipoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
@@ -202,9 +214,8 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JBAgregarProducto)
                     .addComponent(JBModificar)
-                    .addComponent(jButton3)
-                    .addComponent(JBSalir)
-                    .addComponent(jButton6))
+                    .addComponent(JBLimpiar)
+                    .addComponent(JBSalir))
                 .addGap(15, 15, 15))
         );
 
@@ -249,68 +260,109 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Ingrese el precio del producto a ingresar");
                 return;
             }
-            
-            if(JTFStockProducto.getText().isEmpty()){
+
+            if (JTFStockProducto.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Ingrese la cantidad de productos que hay en stock");
                 return;
             }
 
             produ.setTipoDeProducto(tipoProducto);
             produ.setNombre(nombreProducto);
-            produ.setPrecio(Integer.parseInt(JTFPrecioProducto.getText()));
+            produ.setPrecio(Double.parseDouble(JTFPrecioProducto.getText()));
             produ.setStock(Integer.parseInt(JTFStockProducto.getText()));
             produ.setEstado(JRBEstadoProducto.isSelected());
-            
+
             productoData.agregarProducto(produ);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "El precio sólo debe contener números");
+            JOptionPane.showMessageDialog(null, "Solo debe ingresar números");
         }
     }//GEN-LAST:event_JBAgregarProductoActionPerformed
 
     private void JBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBModificarActionPerformed
         ProductoData productoData = new ProductoData();
         Producto produ = new Producto();
+        try {
+            if (JTFIdProducto.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingrese el id del producto que desea modificar");
+                return;
+            }
 
-        if (JTFIdProducto.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese el id del producto que desea modificar");
-            return;
+            String tipoProducto = JTFTipoProducto.getText();
+            if (JTFTipoProducto.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingrese el tipo de producto que desea modificar");
+                return;
+            } else if (!tipoProducto.matches("^[A-Za-z ]+$")) {//VERIFICA/NOS FIJAMOS SI LO QUE SE INGRESA EN EL JTFTipoProducto contiene algo que no sean letras
+                JOptionPane.showMessageDialog(this, "Ingrese solo letras en el campo tipo producto");
+                return;
+            }
+
+            String nombreProducto = JTFNombreProducto.getText();
+            if (JTFNombreProducto.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingrese el nombre del producto que desea modificarr");
+                return;
+            } else if (!nombreProducto.matches("^[A-Za-z ]+$")) {
+                JOptionPane.showMessageDialog(this, "Ingrese solo letras en el campo nombre de producto");
+                return;
+            }
+
+            if (JTFPrecioProducto.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingrese el precio del producto que desea modificar");
+                return;
+            }
+
+            if (JTFStockProducto.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingrese la cantidad de productos que hay en stock");
+                return;
+            }
+
+            produ.setIdProducto(Integer.parseInt(JTFIdProducto.getText()));
+            produ.setTipoDeProducto(tipoProducto);
+            produ.setNombre(nombreProducto);
+            produ.setPrecio(Double.parseDouble(JTFPrecioProducto.getText()));
+            produ.setStock(Integer.parseInt(JTFStockProducto.getText()));
+            produ.setEstado(JRBEstadoProducto.isSelected());
+
+            productoData.modificarProducto(produ);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Solo debe ingresar números");
         }
-
-        String tipoProducto = JTFTipoProducto.getText();
-        if (JTFTipoProducto.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese el tipo de producto que desea modificar");
-            return;
-        } else if (!tipoProducto.matches("^[A-Za-z ]+$")) {//VERIFICA/NOS FIJAMOS SI LO QUE SE INGRESA EN EL JTFTipoProducto contiene algo que no sean letras
-            JOptionPane.showMessageDialog(this, "Ingrese solo letras en el campo tipo producto");
-            return;
-        }
-        produ.setTipoDeProducto(tipoProducto);
-
-        String nombreProducto = JTFNombreProducto.getText();
-        if (JTFNombreProducto.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese el nombre del producto que desea modificarr");
-            return;
-        } else if (!nombreProducto.matches("^[A-Za-z ]+$")) {
-            JOptionPane.showMessageDialog(this, "Ingrese solo letras en el campo nombre de producto");
-            return;
-        }
-        produ.setNombre(nombreProducto);
-
-        if (JTFPrecioProducto.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese el precio del producto que desea modificar");
-            return;
-        }
-
-        produ.setIdProducto(Integer.parseInt(JTFIdProducto.getText()));
-        produ.setPrecio(Integer.parseInt(JTFPrecioProducto.getText()));
-        produ.setEstado(JRBEstadoProducto.isSelected());
-
-        productoData.modificarProducto(produ);
     }//GEN-LAST:event_JBModificarActionPerformed
+
+    private void JBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBLimpiarActionPerformed
+        JTFIdProducto.setText("");
+        JTFNombreProducto.setText("");
+        JTFPrecioProducto.setText("");
+        JTFStockProducto.setText("");
+        JTFTipoProducto.setText("");
+        JRBEstadoProducto.setSelected(false);
+    }//GEN-LAST:event_JBLimpiarActionPerformed
+
+    private void JBBuscarPorIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBuscarPorIdActionPerformed
+        Producto produ = new Producto();
+        ProductoData productoData = new ProductoData();
+        try {
+            if (JTFIdProducto.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingrese el código del producto que desea buscar");
+                return;
+            }
+            produ = productoData.buscarProducto(Integer.parseInt(JTFIdProducto.getText()));//le estoy cargando a produ un producto
+            JTFTipoProducto.setText(produ.getTipoDeProducto());//busco en produ el tipo de producto, y lo seteo en el text field
+            JTFNombreProducto.setText(produ.getNombre());
+            JTFPrecioProducto.setText(Double.toString(produ.getPrecio()));
+            JTFStockProducto.setText(Integer.toString(produ.getStock()));
+            JRBEstadoProducto.setSelected(produ.isEstado());
+        }catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Ingrese un id válido");
+        }catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Solo ingrese números");
+        }
+    }//GEN-LAST:event_JBBuscarPorIdActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBAgregarProducto;
+    private javax.swing.JButton JBBuscarPorId;
+    private javax.swing.JButton JBLimpiar;
     private javax.swing.JButton JBModificar;
     private javax.swing.JButton JBSalir;
     private javax.swing.JRadioButton JRBEstadoProducto;
@@ -319,8 +371,6 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
     private javax.swing.JTextField JTFPrecioProducto;
     private javax.swing.JTextField JTFStockProducto;
     private javax.swing.JTextField JTFTipoProducto;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

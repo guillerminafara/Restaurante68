@@ -268,19 +268,19 @@ public class VentanaMesa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JBLimpiarActionPerformed
 
     private void JBBuscarPorIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBuscarPorIdActionPerformed
-        
+
         Mesa mesa = new Mesa();
         MesaData mesaData = new MesaData();
-        try{
-        if (JTFIdMesa.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un Id para la búsqueda");
-        }
+        try {
+            if (JTFIdMesa.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debe ingresar un Id para la búsqueda");
+            }
 
-        mesa = mesaData.BuscarMesa(Integer.parseInt(JTFIdMesa.getText()));
-        JTFNumeroMesa.setText(Integer.toString(mesa.getNumero()));
-        JTFCapacidadMesa.setText(Integer.toString(mesa.getCapacidad()));
-        JRBEstado.setSelected(mesa.isEstadoDeMesa());
-         } catch (NumberFormatException e) {
+            mesa = mesaData.buscarMesaPorId(Integer.parseInt(JTFIdMesa.getText()));
+            JTFNumeroMesa.setText(Integer.toString(mesa.getNumero()));
+            JTFCapacidadMesa.setText(Integer.toString(mesa.getCapacidad()));
+            JRBEstado.setSelected(mesa.isEstadoDeMesa());
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Solo ingrese números");
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Ingrese un id válido");

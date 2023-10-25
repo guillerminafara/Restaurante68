@@ -147,7 +147,7 @@ public class MesaData {
         return mesa;
     }
 
-    public Mesa BuscarMesaPorId(int idMesa) {
+    public Mesa buscarMesaPorId(int idMesa) {
         Mesa mesa = null;
         String sql = "SELECT numero, capacidad, estado FROM mesa WHERE idMesa = ?";
         PreparedStatement ps = null;

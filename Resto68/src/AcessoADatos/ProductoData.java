@@ -38,7 +38,12 @@ public class ProductoData {
             ps.setString(2, producto.getTipoDeProducto());
             ps.setInt(3, producto.getStock());
             ps.setDouble(4, producto.getPrecio());
-            ps.setBoolean(5, producto.isEstado());
+             if (producto.getStock() == 0) {
+                ps.setBoolean(5, false);
+            } else {
+                ps.setBoolean(5, producto.isEstado());
+            }
+//            ps.setBoolean(5, producto.isEstado());
             
 
             List<Producto> listaProductos = new ArrayList<>();
