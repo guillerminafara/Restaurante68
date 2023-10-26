@@ -54,7 +54,7 @@ public class PedidoProductoData {
             for (Pedido listaPed : pedList) {
                 if (listaPed.getIdPedido() == pedprod.getIdPedido()) { // verificacio
                     //bandera = false; //si el pedido está cobrado y coincide con el idped que recibimos no debe poder cargar
-                    JOptionPane.showMessageDialog(null, "Puede agregar un nuevo pedido(porque no está cerrda la mesa)");
+                    JOptionPane.showMessageDialog(null, "Puede agregar un nuevo pedido");
                     break;
                 } else {
                     bandera = true; // puede agregar
@@ -66,7 +66,7 @@ public class PedidoProductoData {
                     bandera2 = true;//{ si el producto tiene stock(está activo) y coincide con el idprod que intentamos agregar, debe poder cargar
                 }
             }
-            if (!bandera2) {
+            if (!bandera2) { //si es false no contamos con el producto 
                 JOptionPane.showMessageDialog(null, "No contamos con ese producto");
             }
             // for para recorrer lista que viene desde producto con id de productos activos... 
