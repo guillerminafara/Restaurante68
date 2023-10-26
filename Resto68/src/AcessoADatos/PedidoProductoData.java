@@ -120,6 +120,30 @@ public class PedidoProductoData {
         return listaPedProd;
     }
 
+    public List<PedidoProducto> obtenerCarritoXidPedProd(int idPedProd) {
+        List<PedidoProducto> listaPedProd = new ArrayList<>();
+        String sql = "SELECT * FROM pedidoproducto where idPedidoProducto=?";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idPedProd);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                PedidoProducto pedidoProducto = new PedidoProducto();
+                pedidoProducto.setIdPedidoProducto(idPedProd);
+                pedidoProducto.setIdPedido(rs.getInt("idPedido"));
+                pedidoProducto.setIdProducto(rs.getInt("idProducto"));
+                pedidoProducto.setCantidad(rs.getInt("cantidad"));
+                listaPedProd.add(pedidoProducto);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PedidoProductoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        
+        return listaPedProd;
+    }
+
     public List<PedidoProducto> buscarXPedido(int idPedido) {
         List<PedidoProducto> listaPedProd = new ArrayList<>();
         String sql = "SELECT * FROM pedidoproducto where idPedido=?";
@@ -223,7 +247,7 @@ public class PedidoProductoData {
 
     }
 
-    public void modificarPedProd(PedidoProducto pedProd) { // metodo para modificar la cantidad de un producto EN PEDPROD (falta)
+    public void modificarPedProd(PedidoProducto pedProd) { // 
         List<Pedido> pedList = new ArrayList();
         pedList = pedidoData.listarPedidosPorCobrada(true);
         String sql = "UPDATE pedidoProducto SET idPedido=? idProducto=? cantidad=? where idPedidoProducto=?";
