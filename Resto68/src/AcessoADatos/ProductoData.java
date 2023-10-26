@@ -159,19 +159,34 @@ public class ProductoData {
         return listaProductos;
     }
 
-    public List<Producto> buscarProductoPorNombre(String nombre) {
-        List<Producto> listaProductos = new ArrayList<>();
-        for (Producto productos : this.listarProductos())//acá uso el método de listar productos que hice más abajo
-        {
-            if (nombre.equals(productos.getNombre())) {
-                listaProductos.add(productos);
+    public Producto buscarProductoPorNombre(String nombre) {
+     //   List<Producto> listaProductos = new ArrayList<>();
+       Producto producto = null;
+        String sql = "SELECT idProducto, tipoProducto, stock, precio, estado FROM producto WHERE nombreProducto=?";
+        PreparedStatement ps = null;
+         try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                producto = new Producto();
+                producto.setIdProducto(rs.getInt("idProducto"));
+                producto.setTipoDeProducto(rs.getString("tipoProducto"));
+                producto.setNombre(nombre);
+                producto.setStock(rs.getInt("stock"));
+                producto.setPrecio(rs.getDouble("precio"));
+                producto.setEstado(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe el producto buscado");
+                ps.close();
             }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla" + ex.getMessage());
+
         }
 
-        if (listaProductos.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No se encontraron productos con ese nombre");
-        }
-        return listaProductos;
+        return producto;
     }
 
     public List<Producto> buscarProductoPorEstado(boolean estado) {

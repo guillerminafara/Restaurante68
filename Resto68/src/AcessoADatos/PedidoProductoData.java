@@ -195,6 +195,31 @@ public class PedidoProductoData {
 
         return listaProd;
     }
+    public List<PedidoProducto> buscarXProductoYPedido(int idProducto, int idPedido) { //VER
+        List<PedidoProducto> listaProd = new ArrayList<>();
+        String sql = "SELECT * FROM pedidoproducto where idProducto=? and idPedido=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idProducto);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                PedidoProducto pedidoProducto = new PedidoProducto();
+                pedidoProducto.setIdPedidoProducto(rs.getInt("idPedidoProducto"));
+                pedidoProducto.setIdPedido(rs.getInt("idPedido"));
+                pedidoProducto.setIdProducto(idProducto);
+                pedidoProducto.setCantidad(rs.getInt("cantidad"));
+                listaProd.add(pedidoProducto);
+
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            // Logger.getLogger(PedidoProductoData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "no se puede ingresar a la tabla pedidoProducto u.u" + ex.getMessage());
+
+        }
+
+        return listaProd;
+    }
 
     public List<PedidoProducto> buscarXCantidad(int cantidad) {
         List<PedidoProducto> listaCantidad = new ArrayList<>();

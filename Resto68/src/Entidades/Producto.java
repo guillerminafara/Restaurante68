@@ -88,6 +88,6 @@ public class Producto {
 
     @Override
     public String toString() {
-        return  nombre +", Categoria: " + tipoDeProducto +"$"+ precio ;
+        return  nombre+" $"+ precio ;
     }  
 }
