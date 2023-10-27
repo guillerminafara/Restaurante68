@@ -201,11 +201,12 @@ public class PedidoProductoData {
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idProducto);
+            ps.setInt(2, idPedido);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 PedidoProducto pedidoProducto = new PedidoProducto();
                 pedidoProducto.setIdPedidoProducto(rs.getInt("idPedidoProducto"));
-                pedidoProducto.setIdPedido(rs.getInt("idPedido"));
+                pedidoProducto.setIdPedido(idPedido);
                 pedidoProducto.setIdProducto(idProducto);
                 pedidoProducto.setCantidad(rs.getInt("cantidad"));
                 listaProd.add(pedidoProducto);

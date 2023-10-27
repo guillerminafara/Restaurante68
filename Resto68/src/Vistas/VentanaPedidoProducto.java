@@ -126,7 +126,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(JTablaPedProd);
 
-        JCBIdPedProd.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "id Carrito" }));
+        JCBIdPedProd.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "id Carrito", "---" }));
         JCBIdPedProd.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCBIdPedProdItemStateChanged(evt);
@@ -138,7 +138,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
             }
         });
 
-        JCBProd.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Productos" }));
+        JCBProd.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Productos", "---" }));
         JCBProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JCBProdActionPerformed(evt);
@@ -161,7 +161,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Subtotal:");
 
-        CBMesa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mesa" }));
+        CBMesa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mesa", "---" }));
         CBMesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBMesaActionPerformed(evt);
@@ -284,18 +284,32 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
     private void JCBIdPedProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCBIdPedProdActionPerformed
         // TODO add your handling code here:
         modelo.setRowCount(0);
-        PedidoProductoData pedProdData = new PedidoProductoData();
-        PedidoProducto pedProd = new PedidoProducto();
+        PedidoProductoData pedProdData = new PedidoProductoData();  //varible  pedProdData de tipo(clase) PedidoProductoData
+        PedidoProducto pedProd = new PedidoProducto(); //varible pedProd de tipo(clase) PedidoProducto
         List<PedidoProducto> pedProdList = new ArrayList<>();
-        pedProd = (PedidoProducto) JCBIdPedProd.getSelectedItem();
+        pedProd = (PedidoProducto) JCBIdPedProd.getSelectedItem();//varible pedProd de tipo(clase)PedidoProducto cargada con un item(String) seleccionado en un combobox y casteado a tipo PedidoProducto
 
-        pedProdList = pedProdData.obtenerCarritoXidPedProd(pedProd.getIdPedidoProducto());
+        pedProdList = pedProdData.obtenerCarritoXidPedProd(pedProd.getIdPedidoProducto());// lista cargada con una lista que devuelve objetos de tipo PedidoProducto por id
         for (PedidoProducto listaPP : pedProdList) {
             cargarTabla(listaPP);
         }
         JTFIdPed.setText(Integer.toString(pedProd.getIdPedido()));
         JTFCantidad.setText(Integer.toString(pedProd.getCantidad()));
 
+        List<Producto> listaProd = new ArrayList<>();
+        Producto prod = new Producto(); //varible prod de tipo(clase) Producto
+        ProductoData prodData = new ProductoData(); // variable prodData de tipo ProductoData 
+        //PedidoProducto pedProducto = new PedidoProducto();
+        //pedProducto = (PedidoProducto) JCBIdPedProd.getSelectedItem();
+        listaProd = prodData.listarProductos(); // lista de Producto
+
+        for (Producto listaP : listaProd) {
+            if (pedProd != null) {
+                JCBProd.setSelectedItem(Integer.toString(pedProd.getIdProducto()).equals(prod.getIdProducto())); // 
+              //  System.out.println(JCBProd.getSelectedItem());
+
+            }
+        }
 
     }//GEN-LAST:event_JCBIdPedProdActionPerformed
 
@@ -383,6 +397,10 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         Producto producto = new Producto();
         producto = (Producto) JCBProd.getSelectedItem();
         pedProdList = pedProdData.buscarXProducto(producto.getIdProducto());
+        //JTFIdPed.setText(Integer.toString(pedProd.getIdPedido()));
+
+        //int idPedido = Integer.parseInt(JTFIdPed.getText());
+       // pedProdList = pedProdData.buscarXProductoYPedido(producto.getIdProducto(), idPedido);
         for (PedidoProducto listaPP : pedProdList) {
             cargarTabla(listaPP);
         }
@@ -454,16 +472,19 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
     private void JCBIdPedProdItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCBIdPedProdItemStateChanged
         // TODO add your handling code here:
         List<Producto> listaProd = new ArrayList<>();
-        Producto prod = new Producto();
-        ProductoData ProdData = new ProductoData();
-        PedidoProductoData pedProdData = new PedidoProductoData();
-        PedidoProducto pedProd = (PedidoProducto) JCBIdPedProd.getSelectedItem();
-        listaProd = ProdData.listarProductos();
+        Producto prod = new Producto();//variable prod de tipo (clase)Producto
+        ProductoData prodData = new ProductoData();//variable productoData de tipo (clase)ProductoData
+        PedidoProductoData pedProdData = new PedidoProductoData(); //variable pedProdData de tipo (clase)PedidoProductoData
+        PedidoProducto pedProd = new PedidoProducto();
+        pedProd = (PedidoProducto) JCBIdPedProd.getSelectedItem(); //variable pedProd de tipo (clase)PedidoProductoData cargada con un item(string casteado a tipo PedidoProductoData) seleccionado de un combobox 
+        listaProd = prodData.listarProductos();// arraylist cargada con una lista de productos(de tipo producto)
         if (evt.getStateChange() == ItemEvent.SELECTED) {
+//        JTFIdPed.setText(Integer.toString(pedProd.getIdPedido()));
 
             for (Producto listaP : listaProd) {
                 if (pedProd.getIdProducto() == listaP.getIdProducto()) {
-                    //JCBProd.getSelectedItem(listaP.setIdProducto());
+                    //  JCBProd.setSelectedItem(pedProd.getIdProducto());
+
                 }
             }
 
@@ -482,9 +503,10 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         Producto producto = new Producto(); // sacas el precio 
         ProductoData productoData = new ProductoData();
         producto = productoData.buscarProductoPorNombre(JCBProd.getSelectedItem().toString());
+        PedidoProducto pedidoProducto = new PedidoProducto();
         Mesa mesa = new Mesa();
         MesaData mesaData = new MesaData();
-        //CBMesa.getSelectedItem();
+        CBMesa.getSelectedItem();
 
     }//GEN-LAST:event_JBCalcularActionPerformed
 
