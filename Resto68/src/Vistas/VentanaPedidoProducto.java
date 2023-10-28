@@ -34,7 +34,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         cargarCabecera();
         cargarCombo();
         cargarComboProd();
-        cargarComboMesa();
+        // cargarComboMesa();
     }
 
     /**
@@ -64,11 +64,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         JCBProd = new javax.swing.JComboBox();
         JBBProducto = new javax.swing.JButton();
         JBBCantidad = new javax.swing.JButton();
-        JTFSubTotal = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        CBMesa = new javax.swing.JComboBox();
-        Mesa = new javax.swing.JLabel();
-        JBCalcular = new javax.swing.JButton();
+        JBCarrito = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Pedidos de Productos");
@@ -157,21 +153,10 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel6.setText("Subtotal:");
-
-        CBMesa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0" }));
-        CBMesa.addActionListener(new java.awt.event.ActionListener() {
+        JBCarrito.setText("Buscar");
+        JBCarrito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CBMesaActionPerformed(evt);
-            }
-        });
-
-        Mesa.setText("Mesa:");
-
-        JBCalcular.setText("Calcular");
-        JBCalcular.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBCalcularActionPerformed(evt);
+                JBCarritoActionPerformed(evt);
             }
         });
 
@@ -180,24 +165,14 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(JBAgregar)
-                        .addGap(14, 14, 14)
-                        .addComponent(JBModificar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(JBLimpiar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6)
-                        .addGap(31, 31, 31)))
-                .addComponent(JTFSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBSalir, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(JBCalcular, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(30, 30, 30)
+                .addComponent(JBAgregar)
+                .addGap(14, 14, 14)
+                .addComponent(JBModificar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(JBLimpiar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 278, Short.MAX_VALUE)
+                .addComponent(jBSalir)
                 .addGap(82, 82, 82))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -208,22 +183,21 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addComponent(Mesa))
+                            .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CBMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(JTFIdPed, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(JCBProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(JTFCantidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(JCBIdPedProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(JTFIdPed, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JCBProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JTFCantidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JCBIdPedProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JBBuscar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(JBBProducto, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(JBBCantidad, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(161, 161, 161))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(JBBuscar, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(JBBProducto, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(JBBCantidad, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(JBCarrito))
+                .addGap(153, 153, 153))
             .addGroup(layout.createSequentialGroup()
                 .addGap(74, 74, 74)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -236,8 +210,9 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(JCBIdPedProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                    .addComponent(JCBIdPedProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JBCarrito))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JTFIdPed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JBBuscar)
@@ -252,18 +227,9 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
                     .addComponent(JTFCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JBBCantidad)
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CBMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Mesa))
-                .addGap(20, 20, 20)
+                .addGap(48, 48, 48)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JBCalcular)
-                    .addComponent(JTFSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBSalir)
                     .addComponent(JBLimpiar)
@@ -281,47 +247,13 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
 
     private void JCBIdPedProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCBIdPedProdActionPerformed
         // TODO add your handling code here:
-        
-        modelo.setRowCount(0);
-        PedidoProductoData pedProdData = new PedidoProductoData();  //varible  pedProdData de tipo(clase) PedidoProductoData
-        PedidoProducto pedProd = new PedidoProducto(); //varible pedProd de tipo(clase) PedidoProducto
-        List<PedidoProducto> pedProdList = new ArrayList<>();
-        pedProd = (PedidoProducto) JCBIdPedProd.getSelectedItem();//varible pedProd de tipo(clase)PedidoProducto cargada con un item(String) seleccionado en un combobox y casteado a tipo PedidoProducto
-        PedidoProducto pp = new PedidoProducto();
-        pedProdList = pedProdData.obtenerCarritoXidPedProd(pedProd.getIdPedidoProducto());// lista cargada con una lista que devuelve objetos de tipo PedidoProducto por id
-        for (PedidoProducto listaPP : pedProdList) {
-            cargarTabla(listaPP);
-        }
-        JTFIdPed.setText(Integer.toString(pedProd.getIdPedido()));
-        JTFCantidad.setText(Integer.toString(pedProd.getCantidad()));
-        JTFSubTotal.setText("");
-        
-        
-        
 
-        List<Producto> listaProd = new ArrayList<>();
-        Producto prod = new Producto(); //varible prod de tipo(clase) Producto
-        ProductoData prodData = new ProductoData(); // variable prodData de tipo ProductoData 
-        //PedidoProducto pedProducto = new PedidoProducto();
-        //pedProducto = (PedidoProducto) JCBIdPedProd.getSelectedItem();
-        listaProd = prodData.listarProductos(); // lista de Producto
-        // int a = (int) JCBIdPedProd.getSelectedItem();
-        if (!JCBIdPedProd.getSelectedItem().toString().equals("---") || !JCBIdPedProd.getSelectedItem().toString().equals("id Carrito")) 
-           
-            for (Producto listaP : listaProd) { //obtwngo productos
-                if (pedProd.getIdProducto() == listaP.getIdProducto()) {
-                    System.out.println("Pipas");
-                     JCBProd.setSelectedIndex(listaP.getIdProducto());
-                     
-                }
-                    //if (pedProd != null) {
-                    // JCBProd.setSelectedItem(Integer.toString(pedProd.getIdProducto()).equals(prod.getIdProducto())); // 
+        //if (pedProd != null) {
+        // JCBProd.setSelectedItem(Integer.toString(pedProd.getIdProducto()).equals(prod.getIdProducto())); // 
+        //  JCBProd.setSelectedItem(listaP.getIdProducto());
+        //  System.out.println(JCBProd.getSelectedItem());
+        //}
 
-                    //  JCBProd.setSelectedItem(listaP.getIdProducto());
-                    //  System.out.println(JCBProd.getSelectedItem());
-                    //}
-                }
-           
     }//GEN-LAST:event_JCBIdPedProdActionPerformed
 
     private void JCBProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCBProdActionPerformed
@@ -343,18 +275,20 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
             }
             PedidoProductoData pedProdData = new PedidoProductoData();
             PedidoProducto pedProd = new PedidoProducto();
-            PedidoProducto aux = new PedidoProducto();
+          //  PedidoProducto aux = new PedidoProducto();
             Producto producto = new Producto();
 
-            aux = (PedidoProducto) JCBIdPedProd.getSelectedItem();
+            //aux = (PedidoProducto) JCBIdPedProd.getSelectedItem();
             //  aux2 = (PedidoProducto) JCBProd.getSelectedItem();
             producto = (Producto) JCBProd.getSelectedItem();
 
-            pedProd.setIdPedidoProducto(aux.getIdPedidoProducto());
+           // pedProd.setIdPedidoProducto(aux.getIdPedidoProducto());
             pedProd.setIdPedido(Integer.parseInt(JTFIdPed.getText()));
+            
             pedProd.setIdProducto(producto.getIdProducto());
+           
             pedProd.setCantidad(Integer.parseInt(JTFCantidad.getText()));
-
+            
             pedProdData.crearCarrito(pedProd);
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Ingrese un id válido");
@@ -394,9 +328,9 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         JTFIdPed.setText("");
         // JTFProducto.setText("");
         JTFCantidad.setText("");
-        JTFSubTotal.setText("");
+        // JTFSubTotal.setText("");
         JCBIdPedProd.setSelectedIndex(0);
-        CBMesa.setSelectedIndex(0);
+        //CBMesa.setSelectedIndex(0);
 
 
     }//GEN-LAST:event_JBLimpiarActionPerformed
@@ -483,7 +417,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
 
             PedidoProducto aux = (PedidoProducto) JCBIdPedProd.getSelectedItem();
             Producto producto = (Producto) JCBProd.getSelectedItem();
-            System.out.println("aux"+ aux);
+            System.out.println("aux" + aux);
             pedProd.setIdPedidoProducto(aux.getIdPedidoProducto());
             pedProd.setIdPedido(Integer.parseInt(JTFIdPed.getText()));
             pedProd.setIdProducto(producto.getIdProducto());
@@ -497,51 +431,63 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_JBModificarActionPerformed
 
-    private void CBMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBMesaActionPerformed
+    private void JBCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCarritoActionPerformed
         // TODO add your handling code here:
+        PedidoProducto pedProd = new PedidoProducto();
+        pedProd = (PedidoProducto) JCBIdPedProd.getSelectedItem();
+        List<Producto> listaProd = new ArrayList<>();
+        Producto prod = new Producto(); //varible prod de tipo(clase) Producto
+        ProductoData prodData = new ProductoData(); // variable prodData de tipo ProductoData 
+        //PedidoProducto pedProducto = new PedidoProducto();
+        //pedProducto = (PedidoProducto) JCBIdPedProd.getSelectedItem();
+        listaProd = prodData.listarProductos(); // lista de Producto
+        // int a = (int) JCBIdPedProd.getSelectedItem();
+        if (!JCBIdPedProd.getSelectedItem().toString().equals("---") || !JCBIdPedProd.getSelectedItem().toString().equals("id Carrito")) {
+            for (Producto listaP : listaProd) { //obtwngo productos
+                if (pedProd.getIdProducto() == listaP.getIdProducto()) {
+                    System.out.println("Pipas");
+                    JCBProd.setSelectedIndex(listaP.getIdProducto());
+
+                }
+            }
+        }
+        modelo.setRowCount(0);
+        PedidoProductoData pedProdData = new PedidoProductoData();  //varible  pedProdData de tipo(clase) PedidoProductoData
+        // PedidoProducto pedProd = new PedidoProducto(); //varible pedProd de tipo(clase) PedidoProducto
+        List<PedidoProducto> pedProdList = new ArrayList<>();
+        pedProd = (PedidoProducto) JCBIdPedProd.getSelectedItem();//varible pedProd de tipo(clase)PedidoProducto cargada con un item(String) seleccionado en un combobox y casteado a tipo PedidoProducto
+        PedidoProducto pp = new PedidoProducto();
+        pedProdList = pedProdData.obtenerCarritoXidPedProd(pedProd.getIdPedidoProducto());// lista cargada con una lista que devuelve objetos de tipo PedidoProducto por id
+        for (PedidoProducto listaPP : pedProdList) {
+            cargarTabla(listaPP);
+        }
+        JTFIdPed.setText(Integer.toString(pedProd.getIdPedido()));
+        JTFCantidad.setText(Integer.toString(pedProd.getCantidad()));
+        //JTFSubTotal.setText("");
 
 
-    }//GEN-LAST:event_CBMesaActionPerformed
-
-    private void JBCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCalcularActionPerformed
-        
-
-        Producto producto = new Producto(); // sacas el precio 
-        ProductoData productoData = new ProductoData();
-        producto = productoData.buscarProductoPorNombre(JCBProd.getSelectedItem().toString());
-        PedidoProducto pedidoProducto = new PedidoProducto();
-        Mesa mesa = new Mesa();
-        MesaData mesaData = new MesaData();
-        CBMesa.getSelectedItem();
-        double subTotal = producto.getPrecio() * Integer.parseInt(JTFCantidad.getText());
-                
-        JTFSubTotal.setText(Double.toString(subTotal));
-    }//GEN-LAST:event_JBCalcularActionPerformed
+    }//GEN-LAST:event_JBCarritoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox CBMesa;
     private javax.swing.JButton JBAgregar;
     private javax.swing.JButton JBBCantidad;
     private javax.swing.JButton JBBProducto;
     private javax.swing.JButton JBBuscar;
-    private javax.swing.JButton JBCalcular;
+    private javax.swing.JButton JBCarrito;
     private javax.swing.JButton JBLimpiar;
     private javax.swing.JButton JBModificar;
     private javax.swing.JComboBox JCBIdPedProd;
     private javax.swing.JComboBox JCBProd;
     private javax.swing.JTextField JTFCantidad;
     private javax.swing.JTextField JTFIdPed;
-    private javax.swing.JTextField JTFSubTotal;
     private javax.swing.JTable JTablaPedProd;
-    private javax.swing.JLabel Mesa;
     private javax.swing.JButton jBSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
@@ -565,6 +511,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         }
     }
 
+    /*
     private void cargarComboMesa() {
         List<Mesa> listaMesa = new ArrayList<>();
         MesaData mesaData = new MesaData();
@@ -573,7 +520,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
             CBMesa.addItem(mesaList);
         }
 
-    }
+    }*/
 
     private void cargarTabla(PedidoProducto pedidoProducto) {
         Producto producto = new Producto();
@@ -582,21 +529,25 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         MesaData mesaData = new MesaData();
         Pedido pedido = new Pedido();
         PedidoData pedidoData = new PedidoData();
-        try{
         producto = ProductoData.buscarProducto(pedidoProducto.getIdProducto());
-        pedido =pedidoData.buscarPedidoPorId(pedidoProducto.getIdPedido());
-        mesa =mesaData.buscarMesaPorNumero(Integer.parseInt(CBMesa.getSelectedItem().toString()));
-            System.out.println(Integer.parseInt(CBMesa.getSelectedItem().toString()));
-        Mesa mesaPedido = mesaData.buscarMesaPorId(pedido.getIdMesa());
-        
-        if(mesaPedido.getIdMesa() == mesa.getIdMesa()){
-            modelo.addRow(new Object[]{pedidoProducto.getIdPedidoProducto(), pedidoProducto.getIdPedido(), producto.getNombre(), pedidoProducto.getCantidad(), mesa.getNumero()});
-        }else{
-            JOptionPane.showMessageDialog(null, "El pedido no corresponde a dicha mesa");
-        }
-        }catch(NullPointerException e){
+        pedido = pedidoData.buscarPedidoPorId(pedidoProducto.getIdPedido());
+        modelo.addRow(new Object[]{pedidoProducto.getIdPedidoProducto(), pedidoProducto.getIdPedido(), producto.getNombre(), pedidoProducto.getCantidad()});
+        /*
+        try {
+            producto = ProductoData.buscarProducto(pedidoProducto.getIdProducto());
+            pedido = pedidoData.buscarPedidoPorId(pedidoProducto.getIdPedido());
+          //  mesa = mesaData.buscarMesaPorNumero(Integer.parseInt(CBMesa.getSelectedItem().toString()));
+            //System.out.println(Integer.parseInt(CBMesa.getSelectedItem().toString()));
+           // Mesa mesaPedido = mesaData.buscarMesaPorId(pedido.getIdMesa());
+
+            if (mesaPedido.getIdMesa() == mesa.getIdMesa()) {
+                modelo.addRow(new Object[]{pedidoProducto.getIdPedidoProducto(), pedidoProducto.getIdPedido(), producto.getNombre(), pedidoProducto.getCantidad()});
+            } else {
+                JOptionPane.showMessageDialog(null, "El pedido no corresponde a dicha mesa");
+            }
+        } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una mesa");
-        }
+        }*/
     }
 
     private void cargarCabecera() { //Coloca los nombres de la cabecera de la tabla
@@ -604,7 +555,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         modelo.addColumn("Id Pedido");
         modelo.addColumn("Producto");
         modelo.addColumn("Cantidad");
-        modelo.addColumn("Mesa");
+        //modelo.addColumn("Mesa");
 
         JTablaPedProd.setModel(modelo);
     }

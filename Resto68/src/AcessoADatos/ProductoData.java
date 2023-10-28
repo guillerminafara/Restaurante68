@@ -92,7 +92,7 @@ public class ProductoData {
             ps.setInt(6, producto.getIdProducto());
             int exito = ps.executeUpdate();
             if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Producto modificado");
+                JOptionPane.showMessageDialog(null, "Producto modificado :D");
             }
 
         } catch (SQLException ex) {

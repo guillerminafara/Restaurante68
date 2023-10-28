@@ -36,12 +36,12 @@ public class PedidoProductoData {
 
     public void crearCarrito(PedidoProducto pedprod) { // ALTA de pedidosProductos    (FALTA)          
         List<Pedido> pedList = new ArrayList();
-        pedList = pedidoData.listarPedidosPorCobrada(false); //recibe los id de los pedidos cobrados?, que vamos a comparar con el idPedido que va a ingresar
+        pedList = pedidoData.listarPedidosPorCobrada(false); //recibe los id de los pedidos no cobrados?, 
         List<Producto> prodList = new ArrayList();
         prodList = productoData.buscarProductoPorEstado(true); //devuelve lista de productos con stock
         List<PedidoProducto> pedprodList = new ArrayList();
         pedprodList = this.obtenerCarrito();
-        boolean bandera = false;
+        boolean bandera = true;
         boolean bandera2 = false;
 
         String sql = "INSERT INTO pedidoproducto (idPedido, idProducto, cantidad) VALUES (?,?,?)";
@@ -53,16 +53,15 @@ public class PedidoProductoData {
 
             for (Pedido listaPed : pedList) {
                 if (listaPed.getIdPedido() == pedprod.getIdPedido()) { // verificacio
-                    //bandera = false; //si el pedido está cobrado y coincide con el idped que recibimos no debe poder cargar
-                    JOptionPane.showMessageDialog(null, "Puede agregar un nuevo pedido");
-                    break;
-                } else {
-                    bandera = true; // puede agregar
-                }
+                    bandera = false; //si el pedido está cobrado y coincide con el idped que recibimos no debe poder cargar
+                   // JOptionPane.showMessageDialog(null, "Puede agregar un nuevo pedido");
+                  
+                } 
             }
             for (Producto listaProd : prodList) {
                 if (listaProd.getIdProducto() == pedprod.getIdProducto()) {
                     bandera2 = true;//{ si el producto tiene stock(está activo) y coincide con el idprod que intentamos agregar, debe poder cargar
+                    
                 }
             }
             if (!bandera2) { //si es false no contamos con el producto 
@@ -76,11 +75,13 @@ public class PedidoProductoData {
                     JOptionPane.showMessageDialog(null, "agregado correctamente");
                     Producto prod = productoData.buscarProducto(pedprod.getIdProducto());
                     prod.setStock(prod.getStock() - pedprod.getCantidad());//hace que se le reste al stock que hay de prodcutos, la cantidad de productos ue usamos acá.
-                    productoData.modificarProducto(prod);
+                    productoData.modificarProducto(prod); 
 
                 } else {
                     JOptionPane.showMessageDialog(null, "algo está mal, fijate");
                 }
+            }else{
+                 JOptionPane.showMessageDialog(null, "mmmm algo está mal, fijate");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -274,7 +275,7 @@ public class PedidoProductoData {
         List<PedidoProducto> pedprodList = new ArrayList();
         pedprodList = this.obtenerCarrito();
         String sql = "UPDATE pedidoProducto SET idPedido=?, idProducto=?, cantidad=? where idPedidoProducto=?";
-        boolean bandera = false;
+        boolean bandera = true;
         boolean bandera2 = false;
         //  PedidoProducto pedProd = new PedidoProducto();
         try {
@@ -286,10 +287,8 @@ public class PedidoProductoData {
 
             for (Pedido listaPed : pedList) {
                 if (listaPed.getIdPedido() == pedProd.getIdPedido()) { // verificacio
-                     //si existe y está activo sera verdadero 
-                    break;
-                } else {
-                    bandera = true; // puede agregar
+                     bandera=false;//si existe y está activo sera verdadero 
+                   
                 }
             }
             for (Producto listaProd : prodList) {
@@ -297,7 +296,11 @@ public class PedidoProductoData {
                     bandera2 = true;//{ si el producto tiene stock(está activo) y coincide con el idprod que intentamos agregar, debe poder cargar
                 }
             }
-            if (bandera && bandera2) {
+            
+            if (!bandera2) { //si es false no contamos con el producto 
+                JOptionPane.showMessageDialog(null, "No contamos con ese producto");
+            }
+            if (!bandera && bandera2) {
                 int cargado = ps.executeUpdate();
                 if (cargado == 1) {
                     JOptionPane.showMessageDialog(null, " El carrito ha sido actualizado");

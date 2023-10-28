@@ -20,28 +20,14 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="JBAgregar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                      <Component id="JBModificar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="JBLimpiar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="132" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <Component id="JTFSubTotal" min="-2" pref="110" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jBSalir" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="JBCalcular" alignment="1" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              <Component id="JBAgregar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+              <Component id="JBModificar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="JBLimpiar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="278" max="32767" attributes="0"/>
+              <Component id="jBSalir" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
@@ -54,27 +40,26 @@
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="Mesa" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="CBMesa" min="-2" pref="76" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="JTFIdPed" alignment="1" min="-2" pref="168" max="-2" attributes="0"/>
-                              <Component id="JCBProd" alignment="1" min="-2" pref="168" max="-2" attributes="0"/>
-                              <Component id="JTFCantidad" alignment="1" min="-2" pref="168" max="-2" attributes="0"/>
-                              <Component id="JCBIdPedProd" alignment="1" min="-2" pref="123" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="JTFIdPed" alignment="1" min="-2" pref="168" max="-2" attributes="0"/>
+                          <Component id="JCBProd" alignment="1" min="-2" pref="168" max="-2" attributes="0"/>
+                          <Component id="JTFCantidad" alignment="1" min="-2" pref="168" max="-2" attributes="0"/>
+                          <Component id="JCBIdPedProd" alignment="1" min="-2" pref="123" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="JBBuscar" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="JBBProducto" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="JBBCantidad" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="JBBuscar" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="JBBProducto" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="JBBCantidad" alignment="1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="JBCarrito" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="161" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
@@ -91,8 +76,9 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="JCBIdPedProd" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="JBCarrito" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="15" max="32767" attributes="0"/>
+              <EmptySpace pref="17" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="JTFIdPed" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="JBBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -110,20 +96,9 @@
                   <Component id="JBBCantidad" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="CBMesa" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Mesa" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="94" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="JBCalcular" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="JTFSubTotal" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace pref="47" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jBSalir" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="JBLimpiar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -276,39 +251,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBBCantidadActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="JTFSubTotal">
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel6">
+    <Component class="javax.swing.JButton" name="JBCarrito">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Subtotal:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="CBMesa">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="1">
-            <StringItem index="0" value="0"/>
-          </StringArray>
-        </Property>
+        <Property name="text" type="java.lang.String" value="Buscar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CBMesaActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JLabel" name="Mesa">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Mesa:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="JBCalcular">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Calcular"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBCalcularActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBCarritoActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
