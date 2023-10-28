@@ -476,7 +476,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
 
             PedidoProducto aux = (PedidoProducto) JCBIdPedProd.getSelectedItem();
             Producto producto = (Producto) JCBProd.getSelectedItem();
-
+            System.out.println("aux"+ aux);
             pedProd.setIdPedidoProducto(aux.getIdPedidoProducto());
             pedProd.setIdPedido(Integer.parseInt(JTFIdPed.getText()));
             pedProd.setIdProducto(producto.getIdProducto());

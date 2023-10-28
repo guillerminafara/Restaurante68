@@ -58,7 +58,6 @@ public class PedidoProductoData {
                     break;
                 } else {
                     bandera = true; // puede agregar
-
                 }
             }
             for (Producto listaProd : prodList) {
@@ -69,15 +68,12 @@ public class PedidoProductoData {
             if (!bandera2) { //si es false no contamos con el producto 
                 JOptionPane.showMessageDialog(null, "No contamos con ese producto");
             }
-            // for para recorrer lista que viene desde producto con id de productos activos... 
-
             if (!bandera && bandera2) {
                 ps.executeUpdate();
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()) {
                     pedprod.setIdPedidoProducto(rs.getInt(1));
                     JOptionPane.showMessageDialog(null, "agregado correctamente");
-
                     Producto prod = productoData.buscarProducto(pedprod.getIdProducto());
                     prod.setStock(prod.getStock() - pedprod.getCantidad());//hace que se le reste al stock que hay de prodcutos, la cantidad de productos ue usamos acá.
                     productoData.modificarProducto(prod);
@@ -87,11 +83,8 @@ public class PedidoProductoData {
                 }
             }
             ps.close();
-
         } catch (SQLException ex) {
-            //Logger.getLogger(PedidoProductoData.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "no se puede ingresar a la tabla pedidoProducto u.u" + ex.getMessage());
-
         }
     }
 
@@ -128,7 +121,7 @@ public class PedidoProductoData {
             ps = con.prepareStatement(sql);
             ps.setInt(1, idPedProd);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 PedidoProducto pedidoProducto = new PedidoProducto();
                 pedidoProducto.setIdPedidoProducto(idPedProd);
                 pedidoProducto.setIdPedido(rs.getInt("idPedido"));
@@ -139,8 +132,7 @@ public class PedidoProductoData {
         } catch (SQLException ex) {
             Logger.getLogger(PedidoProductoData.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
-        
+
         return listaPedProd;
     }
 
@@ -195,6 +187,7 @@ public class PedidoProductoData {
 
         return listaProd;
     }
+
     public List<PedidoProducto> buscarXProductoYPedido(int idProducto, int idPedido) { //VER
         List<PedidoProducto> listaProd = new ArrayList<>();
         String sql = "SELECT * FROM pedidoproducto where idProducto=? and idPedido=?";
@@ -275,8 +268,12 @@ public class PedidoProductoData {
 
     public void modificarPedProd(PedidoProducto pedProd) { // 
         List<Pedido> pedList = new ArrayList();
-        pedList = pedidoData.listarPedidosPorCobrada(true);
-        String sql = "UPDATE pedidoProducto SET idPedido=? idProducto=? cantidad=? where idPedidoProducto=?";
+        pedList = pedidoData.listarPedidosPorCobrada(false); //pedidos no cobrados
+        List<Producto> prodList = new ArrayList();
+        prodList = productoData.buscarProductoPorEstado(true);
+        List<PedidoProducto> pedprodList = new ArrayList();
+        pedprodList = this.obtenerCarrito();
+        String sql = "UPDATE pedidoProducto SET idPedido=?, idProducto=?, cantidad=? where idPedidoProducto=?";
         boolean bandera = false;
         boolean bandera2 = false;
         //  PedidoProducto pedProd = new PedidoProducto();
@@ -285,20 +282,27 @@ public class PedidoProductoData {
             ps.setInt(1, pedProd.getIdPedido());
             ps.setInt(2, pedProd.getIdProducto());
             ps.setInt(3, pedProd.getCantidad());
-            ps.setInt(4, pedProd.getIdPedido());
+            ps.setInt(4, pedProd.getIdPedidoProducto());
 
             for (Pedido listaPed : pedList) {
                 if (listaPed.getIdPedido() == pedProd.getIdPedido()) { // verificacio
-                    bandera = true; //si existe y está activo sera verdadero 
+                     //si existe y está activo sera verdadero 
+                    break;
+                } else {
+                    bandera = true; // puede agregar
                 }
             }
-
+            for (Producto listaProd : prodList) {
+                if (listaProd.getIdProducto() == pedProd.getIdProducto()) {
+                    bandera2 = true;//{ si el producto tiene stock(está activo) y coincide con el idprod que intentamos agregar, debe poder cargar
+                }
+            }
             if (bandera && bandera2) {
                 int cargado = ps.executeUpdate();
                 if (cargado == 1) {
                     JOptionPane.showMessageDialog(null, " El carrito ha sido actualizado");
                 } else {
-                    JOptionPane.showMessageDialog(null, " modificación cancelada");
+                    JOptionPane.showMessageDialog(null, " no es posible modificar el pedido");
 
                 }
             } else {

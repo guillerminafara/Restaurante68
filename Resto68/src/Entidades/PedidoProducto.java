@@ -63,8 +63,8 @@ public class PedidoProducto {
         this.cantidad = cantidad;
     }
 
-    @Override
+        @Override
     public String toString() {
-        return "Carrito: " + idPedidoProducto ;
+        return ""+idPedidoProducto ;
     }
 }
