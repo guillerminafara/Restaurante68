@@ -6,9 +6,11 @@
 package Vistas;
 
 import AcessoADatos.MesaData;
+import AcessoADatos.PedidoData;
 import AcessoADatos.PedidoProductoData;
 import AcessoADatos.ProductoData;
 import Entidades.Mesa;
+import Entidades.Pedido;
 import Entidades.PedidoProducto;
 import Entidades.Producto;
 import java.awt.event.ItemEvent;
@@ -157,7 +159,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Subtotal:");
 
-        CBMesa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mesa", "---" }));
+        CBMesa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0" }));
         CBMesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBMesaActionPerformed(evt);
@@ -279,6 +281,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
 
     private void JCBIdPedProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCBIdPedProdActionPerformed
         // TODO add your handling code here:
+        
         modelo.setRowCount(0);
         PedidoProductoData pedProdData = new PedidoProductoData();  //varible  pedProdData de tipo(clase) PedidoProductoData
         PedidoProducto pedProd = new PedidoProducto(); //varible pedProd de tipo(clase) PedidoProducto
@@ -291,6 +294,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         }
         JTFIdPed.setText(Integer.toString(pedProd.getIdPedido()));
         JTFCantidad.setText(Integer.toString(pedProd.getCantidad()));
+        JTFSubTotal.setText("");
         
         
         
@@ -302,7 +306,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         //pedProducto = (PedidoProducto) JCBIdPedProd.getSelectedItem();
         listaProd = prodData.listarProductos(); // lista de Producto
         // int a = (int) JCBIdPedProd.getSelectedItem();
-        if (!JCBIdPedProd.getSelectedItem().toString().equals("---") || !JCBIdPedProd.getSelectedItem().toString().equals("id Carrito")) {
+        if (!JCBIdPedProd.getSelectedItem().toString().equals("---") || !JCBIdPedProd.getSelectedItem().toString().equals("id Carrito")) 
            
             for (Producto listaP : listaProd) { //obtwngo productos
                 if (pedProd.getIdProducto() == listaP.getIdProducto()) {
@@ -317,7 +321,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
                     //  System.out.println(JCBProd.getSelectedItem());
                     //}
                 }
-            }
+           
     }//GEN-LAST:event_JCBIdPedProdActionPerformed
 
     private void JCBProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCBProdActionPerformed
@@ -390,6 +394,9 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         JTFIdPed.setText("");
         // JTFProducto.setText("");
         JTFCantidad.setText("");
+        JTFSubTotal.setText("");
+        JCBIdPedProd.setSelectedIndex(0);
+        CBMesa.setSelectedIndex(0);
 
 
     }//GEN-LAST:event_JBLimpiarActionPerformed
@@ -497,7 +504,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_CBMesaActionPerformed
 
     private void JBCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCalcularActionPerformed
-        // TODO add your handling code here:
+        
 
         Producto producto = new Producto(); // sacas el precio 
         ProductoData productoData = new ProductoData();
@@ -506,7 +513,9 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         Mesa mesa = new Mesa();
         MesaData mesaData = new MesaData();
         CBMesa.getSelectedItem();
-
+        double subTotal = producto.getPrecio() * Integer.parseInt(JTFCantidad.getText());
+                
+        JTFSubTotal.setText(Double.toString(subTotal));
     }//GEN-LAST:event_JBCalcularActionPerformed
 
 
@@ -569,10 +578,25 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
     private void cargarTabla(PedidoProducto pedidoProducto) {
         Producto producto = new Producto();
         ProductoData ProductoData = new ProductoData();
+        Mesa mesa = new Mesa();
+        MesaData mesaData = new MesaData();
+        Pedido pedido = new Pedido();
+        PedidoData pedidoData = new PedidoData();
+        try{
         producto = ProductoData.buscarProducto(pedidoProducto.getIdProducto());
-
-        modelo.addRow(new Object[]{pedidoProducto.getIdPedidoProducto(), pedidoProducto.getIdPedido(), producto.getNombre(), pedidoProducto.getCantidad()});
-
+        pedido =pedidoData.buscarPedidoPorId(pedidoProducto.getIdPedido());
+        mesa =mesaData.buscarMesaPorNumero(Integer.parseInt(CBMesa.getSelectedItem().toString()));
+            System.out.println(Integer.parseInt(CBMesa.getSelectedItem().toString()));
+        Mesa mesaPedido = mesaData.buscarMesaPorId(pedido.getIdMesa());
+        
+        if(mesaPedido.getIdMesa() == mesa.getIdMesa()){
+            modelo.addRow(new Object[]{pedidoProducto.getIdPedidoProducto(), pedidoProducto.getIdPedido(), producto.getNombre(), pedidoProducto.getCantidad(), mesa.getNumero()});
+        }else{
+            JOptionPane.showMessageDialog(null, "El pedido no corresponde a dicha mesa");
+        }
+        }catch(NullPointerException e){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una mesa");
+        }
     }
 
     private void cargarCabecera() { //Coloca los nombres de la cabecera de la tabla
@@ -580,6 +604,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         modelo.addColumn("Id Pedido");
         modelo.addColumn("Producto");
         modelo.addColumn("Cantidad");
+        modelo.addColumn("Mesa");
 
         JTablaPedProd.setModel(modelo);
     }

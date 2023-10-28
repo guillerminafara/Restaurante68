@@ -137,7 +137,7 @@ public class PedidoData {
     
     public Pedido buscarPedidoPorId(int idPedido){
         Pedido pedido = null;
-        String sql = "SELECT idMesa, mesero, fechaHora, importe, cobradaDROM pedido WHERE idPedido=? ";
+        String sql = "SELECT idMesa, mesero, fechaHora, importe, cobrada FROM pedido WHERE idPedido=? ";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
