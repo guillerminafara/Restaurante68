@@ -247,7 +247,41 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
 
     private void JCBIdPedProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCBIdPedProdActionPerformed
         // TODO add your handling code here:
+   try {
+            PedidoProducto pedProd = new PedidoProducto();
+            pedProd = (PedidoProducto) JCBIdPedProd.getSelectedItem();
+            List<Producto> listaProd = new ArrayList<>();
+            Producto prod = new Producto(); //varible prod de tipo(clase) Producto
+            ProductoData prodData = new ProductoData(); // variable prodData de tipo ProductoData 
+            //PedidoProducto pedProducto = new PedidoProducto();
+            //pedProducto = (PedidoProducto) JCBIdPedProd.getSelectedItem();
+            listaProd = prodData.listarProductos(); // lista de Producto
+            // int a = (int) JCBIdPedProd.getSelectedItem();
+            if (!JCBIdPedProd.getSelectedItem().toString().equals("---") || !JCBIdPedProd.getSelectedItem().toString().equals("id Carrito")) {
+                for (Producto listaP : listaProd) { //obtwngo productos
+                    if (pedProd.getIdProducto() == listaP.getIdProducto()) {
+                        System.out.println("Pipas");
+                        JCBProd.setSelectedIndex(listaP.getIdProducto());
 
+                    }
+                }
+            }
+            modelo.setRowCount(0);
+            PedidoProductoData pedProdData = new PedidoProductoData();  //varible  pedProdData de tipo(clase) PedidoProductoData
+            // PedidoProducto pedProd = new PedidoProducto(); //varible pedProd de tipo(clase) PedidoProducto
+            List<PedidoProducto> pedProdList = new ArrayList<>();
+            pedProd = (PedidoProducto) JCBIdPedProd.getSelectedItem();//varible pedProd de tipo(clase)PedidoProducto cargada con un item(String) seleccionado en un combobox y casteado a tipo PedidoProducto
+            PedidoProducto pp = new PedidoProducto();
+            pedProdList = pedProdData.obtenerCarritoXidPedProd(pedProd.getIdPedidoProducto());// lista cargada con una lista que devuelve objetos de tipo PedidoProducto por id
+            for (PedidoProducto listaPP : pedProdList) {
+                cargarTabla(listaPP);
+            }
+            JTFIdPed.setText(Integer.toString(pedProd.getIdPedido()));
+            JTFCantidad.setText(Integer.toString(pedProd.getCantidad()));
+            //JTFSubTotal.setText("");
+        } catch (ClassCastException e) {
+            JOptionPane.showMessageDialog(null, "Seleccione un carrito");
+        }
         //if (pedProd != null) {
         // JCBProd.setSelectedItem(Integer.toString(pedProd.getIdProducto()).equals(prod.getIdProducto())); // 
         //  JCBProd.setSelectedItem(listaP.getIdProducto());
@@ -275,21 +309,22 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
             }
             PedidoProductoData pedProdData = new PedidoProductoData();
             PedidoProducto pedProd = new PedidoProducto();
-          //  PedidoProducto aux = new PedidoProducto();
+            //  PedidoProducto aux = new PedidoProducto();
             Producto producto = new Producto();
 
             //aux = (PedidoProducto) JCBIdPedProd.getSelectedItem();
             //  aux2 = (PedidoProducto) JCBProd.getSelectedItem();
             producto = (Producto) JCBProd.getSelectedItem();
 
-           // pedProd.setIdPedidoProducto(aux.getIdPedidoProducto());
+            // pedProd.setIdPedidoProducto(aux.getIdPedidoProducto());
             pedProd.setIdPedido(Integer.parseInt(JTFIdPed.getText()));
-            
+
             pedProd.setIdProducto(producto.getIdProducto());
-           
+
             pedProd.setCantidad(Integer.parseInt(JTFCantidad.getText()));
-            
+
             pedProdData.crearCarrito(pedProd);
+            modelo.setRowCount(0);
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Ingrese un id válido");
         } catch (NumberFormatException e) {
@@ -338,10 +373,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
     private void JBBProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBProductoActionPerformed
         // TODO add your handling code here:
         try {
-            if (JTFIdPed.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ingrese el código del pedido que desea modificar");
-                return;
-            }
+
             if (JCBProd.getSelectedItem().toString().equals("---") || JCBProd.getSelectedItem().toString().equals("Productos")) {
                 JOptionPane.showMessageDialog(this, "Seleccione un producto");
                 return;
@@ -355,12 +387,22 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
             producto = (Producto) JCBProd.getSelectedItem();
             // pedProdList = pedProdData.buscarXProducto(producto.getIdProducto());
             //  JTFIdPed.setText(pedProd.getIdPedido());
+            if (JTFIdPed.getText().isEmpty()) {
+                //JOptionPane.showMessageDialog(this, "Ingrese el código del pedido que desea modificar");
+                //return;
+                pedProdList = pedProdData.buscarXProducto(producto.getIdProducto());
+                for (PedidoProducto listaPP : pedProdList) {
+                    cargarTabla(listaPP);
+                }
 
-            int idPedido = Integer.parseInt(JTFIdPed.getText());
-            pedProdList = pedProdData.buscarXProductoYPedido(producto.getIdProducto(), idPedido);
-            for (PedidoProducto listaPP : pedProdList) {
-                cargarTabla(listaPP);
+            } else {
+                int idPedido = Integer.parseInt(JTFIdPed.getText());
+                pedProdList = pedProdData.buscarXProductoYPedido(producto.getIdProducto(), idPedido);
+                for (PedidoProducto listaPP : pedProdList) {
+                    cargarTabla(listaPP);
+                }
             }
+
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Ingrese un id válido");
         } catch (NumberFormatException e) {
@@ -423,6 +465,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
             pedProd.setIdProducto(producto.getIdProducto());
             pedProd.setCantidad(Integer.parseInt(JTFCantidad.getText()));
             pedProdData.modificarPedProd(pedProd);
+            modelo.setRowCount(0);
 
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Ingrese un id válido");
@@ -433,39 +476,41 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
 
     private void JBCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCarritoActionPerformed
         // TODO add your handling code here:
-        PedidoProducto pedProd = new PedidoProducto();
-        pedProd = (PedidoProducto) JCBIdPedProd.getSelectedItem();
-        List<Producto> listaProd = new ArrayList<>();
-        Producto prod = new Producto(); //varible prod de tipo(clase) Producto
-        ProductoData prodData = new ProductoData(); // variable prodData de tipo ProductoData 
-        //PedidoProducto pedProducto = new PedidoProducto();
-        //pedProducto = (PedidoProducto) JCBIdPedProd.getSelectedItem();
-        listaProd = prodData.listarProductos(); // lista de Producto
-        // int a = (int) JCBIdPedProd.getSelectedItem();
-        if (!JCBIdPedProd.getSelectedItem().toString().equals("---") || !JCBIdPedProd.getSelectedItem().toString().equals("id Carrito")) {
-            for (Producto listaP : listaProd) { //obtwngo productos
-                if (pedProd.getIdProducto() == listaP.getIdProducto()) {
-                    System.out.println("Pipas");
-                    JCBProd.setSelectedIndex(listaP.getIdProducto());
+        try {
+            PedidoProducto pedProd = new PedidoProducto();
+            pedProd = (PedidoProducto) JCBIdPedProd.getSelectedItem();
+            List<Producto> listaProd = new ArrayList<>();
+            Producto prod = new Producto(); //varible prod de tipo(clase) Producto
+            ProductoData prodData = new ProductoData(); // variable prodData de tipo ProductoData 
+            //PedidoProducto pedProducto = new PedidoProducto();
+            //pedProducto = (PedidoProducto) JCBIdPedProd.getSelectedItem();
+            listaProd = prodData.listarProductos(); // lista de Producto
+            // int a = (int) JCBIdPedProd.getSelectedItem();
+            if (!JCBIdPedProd.getSelectedItem().toString().equals("---") || !JCBIdPedProd.getSelectedItem().toString().equals("id Carrito")) {
+                for (Producto listaP : listaProd) { //obtwngo productos
+                    if (pedProd.getIdProducto() == listaP.getIdProducto()) {
+                        System.out.println("Pipas");
+                        JCBProd.setSelectedIndex(listaP.getIdProducto());
 
+                    }
                 }
             }
+            modelo.setRowCount(0);
+            PedidoProductoData pedProdData = new PedidoProductoData();  //varible  pedProdData de tipo(clase) PedidoProductoData
+            // PedidoProducto pedProd = new PedidoProducto(); //varible pedProd de tipo(clase) PedidoProducto
+            List<PedidoProducto> pedProdList = new ArrayList<>();
+            pedProd = (PedidoProducto) JCBIdPedProd.getSelectedItem();//varible pedProd de tipo(clase)PedidoProducto cargada con un item(String) seleccionado en un combobox y casteado a tipo PedidoProducto
+            PedidoProducto pp = new PedidoProducto();
+            pedProdList = pedProdData.obtenerCarritoXidPedProd(pedProd.getIdPedidoProducto());// lista cargada con una lista que devuelve objetos de tipo PedidoProducto por id
+            for (PedidoProducto listaPP : pedProdList) {
+                cargarTabla(listaPP);
+            }
+            JTFIdPed.setText(Integer.toString(pedProd.getIdPedido()));
+            JTFCantidad.setText(Integer.toString(pedProd.getCantidad()));
+            //JTFSubTotal.setText("");
+        } catch (ClassCastException e) {
+            JOptionPane.showMessageDialog(null, "Seleccione un carrito");
         }
-        modelo.setRowCount(0);
-        PedidoProductoData pedProdData = new PedidoProductoData();  //varible  pedProdData de tipo(clase) PedidoProductoData
-        // PedidoProducto pedProd = new PedidoProducto(); //varible pedProd de tipo(clase) PedidoProducto
-        List<PedidoProducto> pedProdList = new ArrayList<>();
-        pedProd = (PedidoProducto) JCBIdPedProd.getSelectedItem();//varible pedProd de tipo(clase)PedidoProducto cargada con un item(String) seleccionado en un combobox y casteado a tipo PedidoProducto
-        PedidoProducto pp = new PedidoProducto();
-        pedProdList = pedProdData.obtenerCarritoXidPedProd(pedProd.getIdPedidoProducto());// lista cargada con una lista que devuelve objetos de tipo PedidoProducto por id
-        for (PedidoProducto listaPP : pedProdList) {
-            cargarTabla(listaPP);
-        }
-        JTFIdPed.setText(Integer.toString(pedProd.getIdPedido()));
-        JTFCantidad.setText(Integer.toString(pedProd.getCantidad()));
-        //JTFSubTotal.setText("");
-
-
     }//GEN-LAST:event_JBCarritoActionPerformed
 
 
@@ -521,7 +566,6 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         }
 
     }*/
-
     private void cargarTabla(PedidoProducto pedidoProducto) {
         Producto producto = new Producto();
         ProductoData ProductoData = new ProductoData();
