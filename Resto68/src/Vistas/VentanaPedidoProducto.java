@@ -325,6 +325,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
 
             pedProdData.crearCarrito(pedProd);
             modelo.setRowCount(0);
+            cargarTabla(pedProd);
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Ingrese un id válido");
         } catch (NumberFormatException e) {
@@ -466,6 +467,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
             pedProd.setCantidad(Integer.parseInt(JTFCantidad.getText()));
             pedProdData.modificarPedProd(pedProd);
             modelo.setRowCount(0);
+            cargarTabla(pedProd);
 
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Ingrese un id válido");
