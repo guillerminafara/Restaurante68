@@ -87,6 +87,12 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
             }
         });
 
+        JRBEstadoProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JRBEstadoProductoActionPerformed(evt);
+            }
+        });
+
         JBAgregarProducto.setText("Agregar");
         JBAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -301,7 +307,7 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
             if (JTFNombreProducto.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Ingrese el nombre del producto que desea ingresar");
                 return;
-            } else if (!nombreProducto.matches("^[A-Za-z ]+$")) {
+            } else if (!nombreProducto.matches("^[A-Za-z][A-Za-z ]*$")) {
                 JOptionPane.showMessageDialog(this, "Ingrese solo letras en el campo nombre de producto");
                 return;
             }
@@ -417,7 +423,7 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
         if (JTFTipoProducto.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese el tipo de producto que desea buscar");
             return;
-        } else if (!tipoProducto.matches("^[A-Za-z ]+$")) {
+        } else if (!tipoProducto.matches("^[A-Za-z][A-Za-z ]*$")) {
             JOptionPane.showMessageDialog(this, "Ingrese solo letras en el campo Tipo de producto");
             return;
         }
@@ -427,27 +433,32 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
         for (Producto tiposProducto : productosPorTipoList) {
             cargarProducto(tiposProducto);
         }
+
     }//GEN-LAST:event_JBBuscarTipoProductoActionPerformed
 
     private void JBBuscarPorNombreProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBuscarPorNombreProductoActionPerformed
         ProductoData productoData = new ProductoData();
         Producto produ = new Producto();
+        try {
+            String nombreProducto = JTFNombreProducto.getText();
+            if (JTFNombreProducto.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingrese el nombre del producto que desea buscar");
+                return;
+            } else if (!nombreProducto.matches("^[A-Za-z][A-Za-z ]*$")) {
+                JOptionPane.showMessageDialog(this, "Ingrese solo letras en el campo nombre del producto");
+                return;
+            }
 
-        String nombreProducto = JTFNombreProducto.getText();
-        if (JTFNombreProducto.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese el nombre del producto que desea buscar");
-            return;
-        } else if (!nombreProducto.matches("^[A-Za-z ]+$")) {
-            JOptionPane.showMessageDialog(this, "Ingrese solo letras en el campo nombre del producto");
-            return;
+            produ = productoData.buscarProductoPorNombre(JTFNombreProducto.getText());
+            JTFIdProducto.setText(Integer.toString(produ.getIdProducto()));
+            JTFTipoProducto.setText(produ.getTipoDeProducto());//busco en produ el tipo de producto, y lo seteo en el text field
+            JTFNombreProducto.setText(produ.getNombre());
+            JTFPrecioProducto.setText(Double.toString(produ.getPrecio()));
+            JTFStockProducto.setText(Integer.toString(produ.getStock()));
+            JRBEstadoProducto.setSelected(produ.isEstado());
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Ingrese un nombre válido");
         }
-
-        produ = productoData.buscarProductoPorNombre(JTFNombreProducto.getText());
-        JTFTipoProducto.setText(produ.getTipoDeProducto());//busco en produ el tipo de producto, y lo seteo en el text field
-        JTFNombreProducto.setText(produ.getNombre());
-        JTFPrecioProducto.setText(Double.toString(produ.getPrecio()));
-        JTFStockProducto.setText(Integer.toString(produ.getStock()));
-        JRBEstadoProducto.setSelected(produ.isEstado());
     }//GEN-LAST:event_JBBuscarPorNombreProductoActionPerformed
 
     private void JBBuscarPorPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBuscarPorPrecioActionPerformed
@@ -475,6 +486,20 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
             cargarProducto(estadoProductos);
         }
     }//GEN-LAST:event_JBBuscarPorEstadoActionPerformed
+
+    private void JRBEstadoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBEstadoProductoActionPerformed
+        //REVISARRRRRRRR
+        
+        
+        ProductoData productoData = new ProductoData();
+        Producto produ = new Producto();
+        if(produ.isEstado()== true){
+            JRBEstadoProducto.setSelected(true);
+            
+        }else{
+            JRBEstadoProducto.setSelected(false);
+        }
+    }//GEN-LAST:event_JRBEstadoProductoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

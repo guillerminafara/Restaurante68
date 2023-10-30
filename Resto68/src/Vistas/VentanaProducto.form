@@ -187,6 +187,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="JRBEstadoProducto">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JRBEstadoProductoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="JBAgregarProducto">
       <Properties>
