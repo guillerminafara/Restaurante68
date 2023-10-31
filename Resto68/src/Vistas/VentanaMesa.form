@@ -231,6 +231,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Por n&#xfa;mero de mesa"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBBuscarPorNumeroActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="JBBuscarPorCapacidad">
       <Properties>

@@ -75,7 +75,7 @@ public class PedidoProductoData {
                     JOptionPane.showMessageDialog(null, "agregado correctamente");
                     Producto prod = productoData.buscarProducto(pedprod.getIdProducto());
                     prod.setStock(prod.getStock() - pedprod.getCantidad());//hace que se le reste al stock que hay de prodcutos, la cantidad de productos ue usamos acá.
-                    productoData.modificarProducto(prod); 
+                    productoData.modificarProductoSin(prod);
 
                 } else {
                     JOptionPane.showMessageDialog(null, "algo está mal, fijate");

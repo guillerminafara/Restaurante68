@@ -105,6 +105,36 @@ public class ProductoData {
         }
     }
 
+    public void modificarProductoSin(Producto producto) {
+        String sql = "UPDATE producto SET nombreProducto=?, tipoProducto=?, stock=?, precio=?, estado=? WHERE IdProducto=? ";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, producto.getNombre());
+            ps.setString(2, producto.getTipoDeProducto());
+            ps.setInt(3, producto.getStock());
+            ps.setDouble(4, producto.getPrecio());
+//            if (producto.getStock() == 0) {
+//                ps.setBoolean(5, false);
+//            } else {
+//                ps.setBoolean(5, producto.isEstado());
+//            }
+
+            ps.setBoolean(5, producto.getStock() != 0);//esto lo que hace es que si el stock=0 me pone el estado en false y si está cargado el estado es igual a true
+
+            ps.setInt(6, producto.getIdProducto());
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+               // JOptionPane.showMessageDialog(null, "Producto modificado");
+            }
+
+        } catch (SQLException ex) {
+            //Logger.getLogger(ProductoData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla producto" + ex.getMessage());
+
+        }
+    }
+
     public void eliminarProducto(int id) {
         String sql = "UPDATE producto SET estado=0 WHERE idProducto = ?";
         try {
@@ -152,7 +182,7 @@ public class ProductoData {
 
     public List<Producto> buscarProductoPorTipo(String tipoDeProducto) {
         //AGREGAR LISTA
-        
+
         List<Producto> listaProductos = new ArrayList<>();
         for (Producto productos : this.listarProductos())//acá uso el método de listar productos que hice más abajo
         {

@@ -118,6 +118,11 @@ public class VentanaMesa extends javax.swing.JInternalFrame {
         });
 
         JBBuscarPorNumero.setText("Por número de mesa");
+        JBBuscarPorNumero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBBuscarPorNumeroActionPerformed(evt);
+            }
+        });
 
         JBBuscarPorCapacidad.setText("Por capacidad");
 
@@ -295,6 +300,27 @@ public class VentanaMesa extends javax.swing.JInternalFrame {
     private void JRBEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBEstadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_JRBEstadoActionPerformed
+
+    private void JBBuscarPorNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBuscarPorNumeroActionPerformed
+        // TODO add your handling code here:ç
+        Mesa mesa = new Mesa();
+        MesaData mesaData = new MesaData();
+        try {
+            if (JTFNumeroMesa.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debe ingresar un número de mesa para la búsqueda");
+            }
+
+            mesa = mesaData.buscarMesaPorNumero(Integer.parseInt(JTFNumeroMesa.getText()));
+            JTFIdMesa.setText(Integer.toString(mesa.getIdMesa()));
+            JTFCapacidadMesa.setText(Integer.toString(mesa.getCapacidad()));
+            JRBEstado.setSelected(mesa.isEstadoDeMesa());
+             mesa = mesaData.buscarMesaPorNumero(Integer.parseInt(JTFNumeroMesa.getText()));
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Solo ingrese números");
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Ingrese un id válido");
+        }
+    }//GEN-LAST:event_JBBuscarPorNumeroActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
