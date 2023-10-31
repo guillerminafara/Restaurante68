@@ -7,8 +7,12 @@ package Vistas;
 
 import AcessoADatos.MesaData;
 import AcessoADatos.PedidoData;
+import AcessoADatos.PedidoProductoData;
+import AcessoADatos.ProductoData;
 import Entidades.Mesa;
 import Entidades.Pedido;
+import Entidades.PedidoProducto;
+import Entidades.Producto;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -43,6 +47,7 @@ public class VentanaPedido extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -70,8 +75,8 @@ public class VentanaPedido extends javax.swing.JInternalFrame {
         jBBuscarFecha = new javax.swing.JButton();
         jBBuscarImporte = new javax.swing.JButton();
         jBBuscarCobrada = new javax.swing.JButton();
-        JDCFecha = new com.toedter.calendar.JDateChooser();
         JBBuscarHora = new javax.swing.JButton();
+        JDCFecha = new com.toedter.calendar.JDateChooser();
 
         jLabel1.setText("PEDIDOS");
 
@@ -233,13 +238,10 @@ public class VentanaPedido extends javax.swing.JInternalFrame {
                                             .addComponent(jLabel5)
                                             .addComponent(jLabel7))
                                         .addGap(48, 48, 48)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(JTFHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(80, 80, 80))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(JDCFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(JTFHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(JDCFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(32, 32, 32)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jBBuscarFecha)
                                             .addComponent(JBBuscarHora, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -288,14 +290,19 @@ public class VentanaPedido extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jBBuscarFecha)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jBBuscarFecha)
+                                .addGap(19, 19, 19))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(JDCFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(19, 19, 19)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(8, 8, 8)
+                                        .addComponent(jLabel5))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(JDCFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(JTFHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(JBBuscarHora)
@@ -314,7 +321,7 @@ public class VentanaPedido extends javax.swing.JInternalFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(46, 46, 46)
                                 .addComponent(jBBuscarCobrada)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -374,7 +381,7 @@ public class VentanaPedido extends javax.swing.JInternalFrame {
             LocalTime horaFinal = LocalTime.parse(JTFHoras.getText(), DateTimeFormatter.ofPattern("HH:mm"));
             LocalDateTime localDateTime = localDate.atTime(horaFinal);
             pedido.setFechaHora(localDateTime);
-            pedido.setImporte(Double.parseDouble(JTFImporte.getText()));
+            pedido.setImporte(0);
             pedido.setCobrada(JRBCobrada.isSelected());
             pedidoData.agregarPedido(pedido);
             
@@ -387,6 +394,12 @@ public class VentanaPedido extends javax.swing.JInternalFrame {
     private void JBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBModificarActionPerformed
         Pedido pedido = new Pedido();
         PedidoData pedidoData = new PedidoData();
+        Producto producto = new Producto();
+        ProductoData productoData = new ProductoData();        
+        PedidoProductoData pedidoProductoData = new PedidoProductoData();        
+        List<PedidoProducto> pedidoProductoList = new ArrayList<>();
+        double precioTotal = 0;
+        double subtotal=0;
         try{
             if(jTFIdPedido.getText().isEmpty()){
                 JOptionPane.showMessageDialog(this, "Ingrese el id del pedido que desea modificar");
@@ -428,6 +441,13 @@ public class VentanaPedido extends javax.swing.JInternalFrame {
             LocalTime horaFinal = LocalTime.parse(hora, DateTimeFormatter.ofPattern("HH:mm"));
             LocalDateTime localDateTime = localDate.atTime(horaFinal);
             pedido.setFechaHora(localDateTime);
+            pedidoProductoList = pedidoProductoData.buscarXPedido(pedido.getIdPedido());
+                for (PedidoProducto listPP : pedidoProductoList) {
+                    producto = productoData.buscarProducto(listPP.getIdProducto());
+                    subtotal=producto.getPrecio()*listPP.getCantidad();
+                    precioTotal+=subtotal; 
+                }            
+            JTFImporte.setText(Double.toString(precioTotal));  
             pedido.setImporte(Double.parseDouble(JTFImporte.getText()));
             pedido.setCobrada(JRBCobrada.isSelected());
             pedidoData.modificarPedido(pedido);
@@ -670,6 +690,7 @@ public class VentanaPedido extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBBuscarIdMesa;
     private javax.swing.JButton jBBuscarImporte;
     private javax.swing.JButton jBBuscarNombreMesero;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
