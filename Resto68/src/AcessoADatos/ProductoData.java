@@ -156,7 +156,7 @@ public class ProductoData {
         List<Producto> listaProductos = new ArrayList<>();
         for (Producto productos : this.listarProductos())//acá uso el método de listar productos que hice más abajo
         {
-            if (tipoDeProducto.equals(productos.getTipoDeProducto())) {
+            if (tipoDeProducto.equalsIgnoreCase(productos.getTipoDeProducto())) {
                 listaProductos.add(productos);
             }
         }

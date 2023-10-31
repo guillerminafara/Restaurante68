@@ -434,7 +434,7 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
 
         for (Producto tiposProducto : productosPorTipoList) {
             cargarProducto(tiposProducto);
-            System.out.println(tiposProducto);
+            
         }
 
     }//GEN-LAST:event_JBBuscarTipoProductoActionPerformed
