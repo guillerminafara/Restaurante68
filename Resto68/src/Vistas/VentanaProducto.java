@@ -422,16 +422,19 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
         String tipoProducto = JTFTipoProducto.getText();
         if (JTFTipoProducto.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese el tipo de producto que desea buscar");
+            
             return;
         } else if (!tipoProducto.matches("^[A-Za-z][A-Za-z ]*$")) {
             JOptionPane.showMessageDialog(this, "Ingrese solo letras en el campo Tipo de producto");
+            
             return;
         }
         List<Producto> productosPorTipoList = new ArrayList<>();
-        productosPorTipoList = productoData.buscarProductoPorTipo(JTFTipoProducto.getText());
+        productosPorTipoList =  productoData.buscarProductoPorTipo(JTFTipoProducto.getText());
 
         for (Producto tiposProducto : productosPorTipoList) {
             cargarProducto(tiposProducto);
+            System.out.println(tiposProducto);
         }
 
     }//GEN-LAST:event_JBBuscarTipoProductoActionPerformed

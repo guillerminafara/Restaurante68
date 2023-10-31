@@ -152,6 +152,7 @@ public class ProductoData {
 
     public List<Producto> buscarProductoPorTipo(String tipoDeProducto) {
         //AGREGAR LISTA
+        
         List<Producto> listaProductos = new ArrayList<>();
         for (Producto productos : this.listarProductos())//acá uso el método de listar productos que hice más abajo
         {
