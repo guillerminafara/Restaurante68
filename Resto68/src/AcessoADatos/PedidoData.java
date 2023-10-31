@@ -8,7 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -94,10 +96,11 @@ public class PedidoData {
                 if(pedido.getIdMesa()==pedidoDeLista.getIdMesa()&&!(pedido.getNombreMesero().equalsIgnoreCase(pedidoDeLista.getNombreMesero())))
                         bandera=false;
             }
+            ps.setInt(6, pedido.getIdPedido());
             if(bandera){
                 int exito = ps.executeUpdate();
-                if (exito == 1)
-                    JOptionPane.showMessageDialog(null, "Producto modificado");
+                if (exito == 1)                    
+                    JOptionPane.showMessageDialog(null, "Pedido modificado");
             }else {
                 JOptionPane.showMessageDialog(null, "La mesa corresponde a otro mesero");
             }
@@ -224,15 +227,27 @@ public class PedidoData {
         }
     };
     
-    public List<Pedido> listarPedidosPorFecha(LocalDateTime bot, LocalDateTime top){
-        List<Pedido> pedidosPorImporte = new ArrayList<>();
+    public List<Pedido> listarPedidosPorFecha(LocalDate bot, LocalDate top){
+        List<Pedido> pedidosPorImporte = new ArrayList<>();        
         for(Pedido pedido :this.listarPedidos()){
-            if(pedido.getFechaHora().isAfter(bot)&&pedido.getFechaHora().isBefore(top))
+            LocalDate fecha = pedido.getFechaHora().toLocalDate();            
+            if((fecha.isAfter(bot)||fecha.isEqual(bot))&&(fecha.isBefore(top)||fecha.isEqual(top)))
                 pedidosPorImporte.add(pedido);
         }
         Collections.sort(pedidosPorImporte,comparaFechaHora);
         return pedidosPorImporte;
     }    
+    
+    public List<Pedido> listarPedidosPorHora(LocalTime bot, LocalTime top){
+        List<Pedido> pedidosPorImporte = new ArrayList<>();        
+        for(Pedido pedido :this.listarPedidos()){
+            LocalTime hora = pedido.getFechaHora().toLocalTime();            
+            if((hora.isAfter(bot)||hora.equals(bot))&&(hora.isBefore(top)||hora.equals(top)))
+                pedidosPorImporte.add(pedido);
+        }
+        Collections.sort(pedidosPorImporte,comparaFechaHora);
+        return pedidosPorImporte;
+    } 
     
     public static Comparator<Pedido> comparaFechaHora = new Comparator<Pedido>() { 
         @Override
