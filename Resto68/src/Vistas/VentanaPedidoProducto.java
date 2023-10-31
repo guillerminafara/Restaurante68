@@ -324,6 +324,10 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
             pedProd.setCantidad(Integer.parseInt(JTFCantidad.getText()));
 
             pedProdData.crearCarrito(pedProd);
+            Pedido pedido = new Pedido();
+            PedidoData pedidoData = new PedidoData();      
+            pedido.setImporte(Integer.parseInt(JTFCantidad.getText())*producto.getPrecio());            
+            pedidoData.modificarPedido(pedido);
             modelo.setRowCount(0);
             cargarTabla(pedProd);
         } catch (NullPointerException e) {

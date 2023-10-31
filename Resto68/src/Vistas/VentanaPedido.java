@@ -35,7 +35,8 @@ public class VentanaPedido extends javax.swing.JInternalFrame {
     private DefaultTableModel modelo = new DefaultTableModel();
     public VentanaPedido() {
         initComponents();
-        cargarCabecera();
+        cargarCabecera();        
+        JTFImporte.setEditable(false);
     }
 
     /**
@@ -91,6 +92,12 @@ public class VentanaPedido extends javax.swing.JInternalFrame {
         jLabel6.setText("Importe");
 
         jLabel7.setText("Hora");
+
+        JTFImporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JTFImporteActionPerformed(evt);
+            }
+        });
 
         JTFHoras.setText("--:--");
         JTFHoras.addActionListener(new java.awt.event.ActionListener() {
@@ -643,6 +650,10 @@ public class VentanaPedido extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Ingrese una fecha válido");
         } 
     }//GEN-LAST:event_jBBuscarCobradaActionPerformed
+
+    private void JTFImporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFImporteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JTFImporteActionPerformed
     private void cargarCabecera() { //Coloca los nombres de la cabecera de la tabla
         modelo.addColumn("Id Pedido");
         modelo.addColumn("Numero de Mesa");
