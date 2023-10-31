@@ -38,13 +38,13 @@ public class ProductoData {
             ps.setString(2, producto.getTipoDeProducto());
             ps.setInt(3, producto.getStock());
             ps.setDouble(4, producto.getPrecio());
-             if (producto.getStock() == 0) {
-                ps.setBoolean(5, false);
-            } else {
-                ps.setBoolean(5, producto.isEstado());
-            }
+//             if (producto.getStock() == 0) {
+//                ps.setBoolean(5, false);
+//            } else {
+//                ps.setBoolean(5, producto.isEstado());
+//            }
 //            ps.setBoolean(5, producto.isEstado());
-            
+            ps.setBoolean(5, producto.getStock() != 0);//ver comentario en línea 93.
 
             List<Producto> listaProductos = new ArrayList<>();
             listaProductos = this.listarProductos();
@@ -84,15 +84,18 @@ public class ProductoData {
             ps.setString(2, producto.getTipoDeProducto());
             ps.setInt(3, producto.getStock());
             ps.setDouble(4, producto.getPrecio());
-            if (producto.getStock() == 0) {
-                ps.setBoolean(5, false);
-            } else {
-                ps.setBoolean(5, producto.isEstado());
-            }
+//            if (producto.getStock() == 0) {
+//                ps.setBoolean(5, false);
+//            } else {
+//                ps.setBoolean(5, producto.isEstado());
+//            }
+
+            ps.setBoolean(5, producto.getStock() != 0);//esto lo que hace es que si el stock=0 me pone el estado en false y si está cargado el estado es igual a true
+
             ps.setInt(6, producto.getIdProducto());
             int exito = ps.executeUpdate();
             if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Producto modificado :D");
+                JOptionPane.showMessageDialog(null, "Producto modificado");
             }
 
         } catch (SQLException ex) {
@@ -133,7 +136,7 @@ public class ProductoData {
                 producto.setNombre(rs.getString("nombreProducto"));
                 producto.setStock(rs.getInt("stock"));
                 producto.setPrecio(rs.getDouble("precio"));
-                producto.setEstado(true);
+                producto.setEstado(rs.getBoolean("estado"));
             } else {
                 JOptionPane.showMessageDialog(null, "No existe el producto buscado");
                 ps.close();
@@ -160,11 +163,11 @@ public class ProductoData {
     }
 
     public Producto buscarProductoPorNombre(String nombre) {
-     //   List<Producto> listaProductos = new ArrayList<>();
-       Producto producto = null;
+        //   List<Producto> listaProductos = new ArrayList<>();
+        Producto producto = null;
         String sql = "SELECT idProducto, tipoProducto, stock, precio, estado FROM producto WHERE nombreProducto=?";
         PreparedStatement ps = null;
-         try {
+        try {
             ps = con.prepareStatement(sql);
             ps.setString(1, nombre);
 
@@ -176,7 +179,7 @@ public class ProductoData {
                 producto.setNombre(nombre);
                 producto.setStock(rs.getInt("stock"));
                 producto.setPrecio(rs.getDouble("precio"));
-                producto.setEstado(true);
+                producto.setEstado(rs.getBoolean("estado"));
             } else {
                 JOptionPane.showMessageDialog(null, "No existe el producto buscado");
                 ps.close();

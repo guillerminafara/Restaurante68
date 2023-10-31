@@ -223,6 +223,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Ocupada"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JRBEstadoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="JBBuscarPorNumero">
       <Properties>

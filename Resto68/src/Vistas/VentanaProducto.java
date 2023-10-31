@@ -488,17 +488,8 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JBBuscarPorEstadoActionPerformed
 
     private void JRBEstadoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBEstadoProductoActionPerformed
-        //REVISARRRRRRRR
         
-        
-        ProductoData productoData = new ProductoData();
-        Producto produ = new Producto();
-        if(produ.isEstado()== true){
-            JRBEstadoProducto.setSelected(true);
-            
-        }else{
-            JRBEstadoProducto.setSelected(false);
-        }
+
     }//GEN-LAST:event_JRBEstadoProductoActionPerformed
 
 
