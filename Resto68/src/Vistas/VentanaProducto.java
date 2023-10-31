@@ -395,6 +395,7 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JBLimpiarActionPerformed
 
     private void JBBuscarPorIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBuscarPorIdActionPerformed
+        modelo.setRowCount(0);
         Producto produ = new Producto();
         ProductoData productoData = new ProductoData();
         try {
@@ -416,6 +417,7 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JBBuscarPorIdActionPerformed
 
     private void JBBuscarTipoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBuscarTipoProductoActionPerformed
+        modelo.setRowCount(0);
         Producto produ = new Producto();
         ProductoData productoData = new ProductoData();
 
@@ -440,6 +442,7 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JBBuscarTipoProductoActionPerformed
 
     private void JBBuscarPorNombreProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBuscarPorNombreProductoActionPerformed
+        modelo.setRowCount(0);
         ProductoData productoData = new ProductoData();
         Producto produ = new Producto();
         try {
@@ -465,6 +468,7 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JBBuscarPorNombreProductoActionPerformed
 
     private void JBBuscarPorPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBuscarPorPrecioActionPerformed
+        modelo.setRowCount(0);
         ProductoData productoData = new ProductoData();
 
 //        String preciosProductos = JTFPrecioProducto.getText();
@@ -481,6 +485,7 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JBBuscarPorPrecioActionPerformed
 
     private void JBBuscarPorEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBuscarPorEstadoActionPerformed
+        modelo.setRowCount(0);
         ProductoData productoData = new ProductoData();
         List<Producto> productosPorEstadoList = new ArrayList<>();
         productosPorEstadoList = productoData.buscarProductoPorEstado(JRBEstadoProducto.isSelected());
