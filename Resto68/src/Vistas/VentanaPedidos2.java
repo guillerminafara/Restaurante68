@@ -12,6 +12,9 @@ import Entidades.Mesa;
 import Entidades.Pedido;
 import Entidades.PedidoProducto;
 import Entidades.Producto;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,8 +27,12 @@ public class VentanaPedidos2 extends javax.swing.JInternalFrame {
      * Creates new form VentanaPedidos2
      */
     private DefaultTableModel modelo = new DefaultTableModel();
+
     public VentanaPedidos2() {
         initComponents();
+        cargarCabecera();
+        cargarComboMesero();
+        cargarComboMesa();
     }
 
     /**
@@ -42,10 +49,17 @@ public class VentanaPedidos2 extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         JTabla = new javax.swing.JTable();
         JBSalir = new javax.swing.JButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        JBLimpiar = new javax.swing.JButton();
+        JCBuscarMesero = new javax.swing.JButton();
+        JTFHora = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        JTFHoraFinal = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        JCBMesa = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        JBMesa = new javax.swing.JButton();
 
         JCBMesero.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
         JCBMesero.addActionListener(new java.awt.event.ActionListener() {
@@ -70,55 +84,119 @@ public class VentanaPedidos2 extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(JTabla);
 
         JBSalir.setText("Salir");
+        JBSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBSalirActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setText("Desde:");
+        jLabel3.setText("Fecha:");
 
-        jLabel3.setText("Hasta:");
+        JBLimpiar.setText("Limpiar");
+        JBLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBLimpiarActionPerformed(evt);
+            }
+        });
+
+        JCBuscarMesero.setText("Buscar");
+        JCBuscarMesero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JCBuscarMeseroActionPerformed(evt);
+            }
+        });
+
+        JTFHora.setText("--:--");
+
+        jLabel2.setText("Hora Inicial:");
+
+        JTFHoraFinal.setText("--:--");
+
+        jLabel4.setText("Hora Final:");
+
+        JCBMesa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
+
+        jLabel5.setText("Mesa:");
+
+        JBMesa.setText("Buscar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(35, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(221, 221, 221)
+                .addComponent(JBLimpiar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(JBSalir)
+                .addGap(10, 10, 10))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(JBSalir))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(JCBMesero, 0, 55, Short.MAX_VALUE)
+                    .addComponent(JCBMesa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(JCBMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(24, 24, 24)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(58, 58, 58)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 114, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(JCBuscarMesero)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel4))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(JBMesa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(JTFHoraFinal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+                        .addComponent(JTFHora, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addGap(129, 129, 129))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(JCBMesero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1)
-                        .addComponent(jLabel2))
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                        .addComponent(JCBuscarMesero)
+                        .addComponent(jLabel3))
+                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(JTFHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(JCBMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(JBMesa))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(JTFHoraFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(JBSalir)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JBSalir)
+                    .addComponent(JBLimpiar))
                 .addContainerGap())
         );
 
@@ -127,18 +205,57 @@ public class VentanaPedidos2 extends javax.swing.JInternalFrame {
 
     private void JCBMeseroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCBMeseroActionPerformed
         // TODO add your handling code here:
+
+
     }//GEN-LAST:event_JCBMeseroActionPerformed
+
+    private void JBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBLimpiarActionPerformed
+        // TODO add your handling code here:
+
+        modelo.setRowCount(0);
+    }//GEN-LAST:event_JBLimpiarActionPerformed
+
+    private void JCBuscarMeseroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCBuscarMeseroActionPerformed
+        // TODO add your handling code here:
+        //  JCBuscarMesero
+        modelo.setRowCount(0);
+        if (JCBMesero.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione un mesero");
+            return;
+        }
+        List<Pedido> listaPed = new ArrayList<>();
+        Pedido pedido = new Pedido();
+        PedidoData pedidoData = new PedidoData();
+        listaPed = pedidoData.listarPedidosPorMesero(JCBMesero.getSelectedItem().toString());
+        for (Pedido pedList : listaPed) {
+            cargarTabla(pedList);
+        }
+
+
+    }//GEN-LAST:event_JCBuscarMeseroActionPerformed
+
+    private void JBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSalirActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_JBSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JBLimpiar;
+    private javax.swing.JButton JBMesa;
     private javax.swing.JButton JBSalir;
+    private javax.swing.JComboBox JCBMesa;
     private javax.swing.JComboBox JCBMesero;
+    private javax.swing.JButton JCBuscarMesero;
+    private javax.swing.JTextField JTFHora;
+    private javax.swing.JTextField JTFHoraFinal;
     private javax.swing.JTable JTabla;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
   private void cargarCabecera() { //Coloca los nombres de la cabecera de la tabla
@@ -151,18 +268,48 @@ public class VentanaPedidos2 extends javax.swing.JInternalFrame {
         modelo.addColumn("Estado");
         JTabla.setModel(modelo);
     }
-    
-    private void cargarTabla() {
-        Producto producto = new Producto();
-        ProductoData ProductoData = new ProductoData();
+
+    private void cargarTabla(Pedido pedido) {
         Mesa mesa = new Mesa();
         MesaData mesaData = new MesaData();
+        mesa = mesaData.buscarMesaPorId(pedido.getIdMesa());
+        String cobrada = "No esta cobrada";
+        if (pedido.isCobrada()) {
+            cobrada = "Esta cobrada";
+        }
+        modelo.addRow(new Object[]{
+            pedido.getIdPedido(),
+            mesa.getNumero(),
+            pedido.getNombreMesero(),
+            pedido.getFechaHora().toLocalDate(),
+            pedido.getFechaHora().toLocalTime(),
+            pedido.getImporte(),
+            cobrada
+        });
+    }
+
+    private void cargarComboMesero() {
+        List<Pedido> listaPed = new ArrayList<>();
         Pedido pedido = new Pedido();
         PedidoData pedidoData = new PedidoData();
-        producto = ProductoData.buscarProducto(pedidoProducto.getIdProducto());
-        pedido = pedidoData.buscarPedidoPorId(pedidoProducto.getIdPedido());
-        modelo.addRow(new Object[]{pedidoProducto.getIdPedidoProducto(), pedidoProducto.getIdPedido(), producto.getNombre(), pedidoProducto.getCantidad()});
+
+        listaPed = pedidoData.listarPedidos();
+        for (Pedido pedList : listaPed) {
+            JCBMesero.addItem(pedList);
+        }
+
     }
-    
-    
+
+    private void cargarComboMesa() {
+        List<Mesa> listaMesa = new ArrayList<>();
+        Mesa mesa = new Mesa();
+        MesaData mesaData = new MesaData();
+
+        listaMesa = mesaData.listarMesa();
+        for (Mesa pedList : listaMesa) {
+            JCBMesa.addItem(pedList);
+        }
+
+    }
+
 }

@@ -251,7 +251,10 @@ public class VentanaCalculos extends javax.swing.JInternalFrame {
                 ppList = ppd.buscarXPedido(pList.getIdPedido());
                 for (PedidoProducto listPP : ppList) {
                     producto = productoData.buscarProducto(listPP.getIdProducto());
-                    modelo.addRow(new Object[]{producto.getNombre(), listPP.getCantidad(), producto.getPrecio(), (producto.getPrecio() * listPP.getCantidad())});
+                    modelo.addRow(new Object[]{producto.getNombre(),
+                        listPP.getCantidad(), 
+                        producto.getPrecio(), 
+                        (producto.getPrecio() * listPP.getCantidad())});
                     //listPP.getCantidad();
                 }
             }

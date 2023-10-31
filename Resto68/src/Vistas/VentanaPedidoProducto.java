@@ -309,14 +309,9 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
             }
             PedidoProductoData pedProdData = new PedidoProductoData();
             PedidoProducto pedProd = new PedidoProducto();
-            //  PedidoProducto aux = new PedidoProducto();
+            
             Producto producto = new Producto();
-
-            //aux = (PedidoProducto) JCBIdPedProd.getSelectedItem();
-            //  aux2 = (PedidoProducto) JCBProd.getSelectedItem();
             producto = (Producto) JCBProd.getSelectedItem();
-
-            // pedProd.setIdPedidoProducto(aux.getIdPedidoProducto());
             pedProd.setIdPedido(Integer.parseInt(JTFIdPed.getText()));
 
             pedProd.setIdProducto(producto.getIdProducto());
