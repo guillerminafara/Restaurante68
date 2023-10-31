@@ -93,6 +93,7 @@ public class VentanaPedido extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Hora");
 
+        JTFImporte.setText("0");
         JTFImporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JTFImporteActionPerformed(evt);
@@ -247,8 +248,8 @@ public class VentanaPedido extends javax.swing.JInternalFrame {
                                         .addGap(48, 48, 48)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(JTFHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(JDCFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(32, 32, 32)
+                                            .addComponent(JDCFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jBBuscarFecha)
                                             .addComponent(JBBuscarHora, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -367,7 +368,7 @@ public class VentanaPedido extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Ingrese la fecha que desea agregar al pedido");
                 return;
             }
-            if(Integer.parseInt(JTFHoras.getText().substring(0,2))<0 || Integer.parseInt(JTFHoras.getText().substring(0,2))>12 ){
+            if(Integer.parseInt(JTFHoras.getText().substring(0,2))<0 || Integer.parseInt(JTFHoras.getText().substring(0,2))>23 ){
                 JOptionPane.showMessageDialog(this, "Ingrese una hora valida entre 0 y 12");
                 return;                
             }
@@ -425,8 +426,8 @@ public class VentanaPedido extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Ingrese la fecha a modificar");
                 return;
             }
-            if(Integer.parseInt(JTFHoras.getText().substring(0,2))<0 || Integer.parseInt(JTFHoras.getText().substring(0,2))>12 ){
-                JOptionPane.showMessageDialog(this, "Ingrese una hora valida entre 0 y 12");
+            if(Integer.parseInt(JTFHoras.getText().substring(0,2))<0 || Integer.parseInt(JTFHoras.getText().substring(0,2))>23 ){
+                JOptionPane.showMessageDialog(this, "Ingrese una hora valida entre 0 y 23");
                 return;                
             }
             if(Integer.parseInt(JTFHoras.getText().substring(3))<0 || Integer.parseInt(JTFHoras.getText().substring(3))>59 ){
@@ -451,7 +452,7 @@ public class VentanaPedido extends javax.swing.JInternalFrame {
             pedidoProductoList = pedidoProductoData.buscarXPedido(pedido.getIdPedido());
                 for (PedidoProducto listPP : pedidoProductoList) {
                     producto = productoData.buscarProducto(listPP.getIdProducto());
-                    subtotal=producto.getPrecio()*listPP.getCantidad();
+                    subtotal = producto.getPrecio()*listPP.getCantidad();
                     precioTotal+=subtotal; 
                 }            
             JTFImporte.setText(Double.toString(precioTotal));  
@@ -470,14 +471,19 @@ public class VentanaPedido extends javax.swing.JInternalFrame {
         jTFNombreMesero.setText("");
         JDCFecha.setDate(null);
         JTFHoras.setText("");
-        JTFImporte.setText("");
+        JTFImporte.setText("0");
         JRBCobrada.setSelected(false);
         modelo.setRowCount(0);
     }//GEN-LAST:event_JBLimpiarActionPerformed
 
     private void jBBuscarIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarIdActionPerformed
         Pedido pedido = new Pedido();
-        PedidoData pedidoData = new PedidoData();
+        PedidoData pedidoData = new PedidoData();Producto producto = new Producto();
+        ProductoData productoData = new ProductoData();        
+        PedidoProductoData pedidoProductoData = new PedidoProductoData();        
+        List<PedidoProducto> pedidoProductoList = new ArrayList<>();  
+        double precioTotal = 0;
+        double subtotal=0;
         modelo.setRowCount(0);
         try {
             if (jTFIdPedido.getText().isEmpty()) {
@@ -492,7 +498,13 @@ public class VentanaPedido extends javax.swing.JInternalFrame {
             JDCFecha.setDate(Date.from(fecha.atStartOfDay(ZoneId.systemDefault()).toInstant()));
             LocalTime hora = pedido.getFechaHora().toLocalTime();
             JTFHoras.setText(hora.format(DateTimeFormatter.ofPattern("HH:mm")));
-            JTFImporte.setText(Double.toString(pedido.getImporte()));
+            pedidoProductoList = pedidoProductoData.buscarXPedido(pedido.getIdPedido());
+                for (PedidoProducto listPP : pedidoProductoList) {
+                    producto = productoData.buscarProducto(listPP.getIdProducto());
+                    subtotal = producto.getPrecio()*listPP.getCantidad();
+                    precioTotal+=subtotal; 
+                }            
+            JTFImporte.setText(Double.toString(precioTotal));
             JRBCobrada.setSelected(pedido.isCobrada());
             cargarProducto(pedido);
         } catch (NullPointerException e) {

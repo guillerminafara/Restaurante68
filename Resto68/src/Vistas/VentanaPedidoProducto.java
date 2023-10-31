@@ -246,7 +246,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBSalirActionPerformed
 
     private void JCBIdPedProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCBIdPedProdActionPerformed
-        // TODO add your handling code here:
+/*        // TODO add your handling code here:
    try {
             PedidoProducto pedProd = new PedidoProducto();
             pedProd = (PedidoProducto) JCBIdPedProd.getSelectedItem();
@@ -286,7 +286,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         // JCBProd.setSelectedItem(Integer.toString(pedProd.getIdProducto()).equals(prod.getIdProducto())); // 
         //  JCBProd.setSelectedItem(listaP.getIdProducto());
         //  System.out.println(JCBProd.getSelectedItem());
-        //}
+        //}*/
 
     }//GEN-LAST:event_JCBIdPedProdActionPerformed
 
@@ -487,7 +487,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
             pedProd = (PedidoProducto) JCBIdPedProd.getSelectedItem();
             List<Producto> listaProd = new ArrayList<>();
             Producto prod = new Producto(); //varible prod de tipo(clase) Producto
-            ProductoData prodData = new ProductoData(); // variable prodData de tipo ProductoData 
+            ProductoData prodData = new ProductoData(); // variable prodData de tipo ProductoData
             //PedidoProducto pedProducto = new PedidoProducto();
             //pedProducto = (PedidoProducto) JCBIdPedProd.getSelectedItem();
             listaProd = prodData.listarProductos(); // lista de Producto

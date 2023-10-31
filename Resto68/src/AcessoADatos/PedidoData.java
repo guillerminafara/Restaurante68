@@ -187,7 +187,7 @@ public class PedidoData {
     public List<Pedido> listarPedidosPorMesero(String mesero){
         List<Pedido> pedidosPorMesero = new ArrayList<>();
         for(Pedido pedido :this.listarPedidos()){
-            if(mesero.equals(pedido.getNombreMesero()))
+            if(mesero.equalsIgnoreCase(pedido.getNombreMesero()))
                 pedidosPorMesero.add(pedido);
         }
         Collections.sort(pedidosPorMesero,comparaMesero);
