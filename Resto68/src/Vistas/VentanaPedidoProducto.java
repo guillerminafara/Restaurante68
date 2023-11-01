@@ -65,11 +65,12 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         JBBProducto = new javax.swing.JButton();
         JBBCantidad = new javax.swing.JButton();
         JBCarrito = new javax.swing.JButton();
+        JBEliminar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Pedidos de Productos");
 
-        jLabel2.setText("Id del pedido del producto");
+        jLabel2.setText("Id Carrito:");
 
         jLabel3.setText("Id pedido");
 
@@ -160,6 +161,13 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
             }
         });
 
+        JBEliminar.setText("Eliminar");
+        JBEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBEliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -171,37 +179,42 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
                 .addComponent(JBModificar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(JBLimpiar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 278, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(JBEliminar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBSalir)
                 .addGap(82, 82, 82))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
+                .addComponent(jLabel1)
+                .addGap(327, 327, 327))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(124, 124, 124)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
                             .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(JTFIdPed, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JCBProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JTFCantidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JCBIdPedProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(JBBuscar, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(JBBProducto, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(JBBCantidad, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addComponent(JBCarrito))
-                .addGap(153, 153, 153))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(74, 74, 74)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(JCBProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(JTFCantidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(JCBIdPedProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(JTFIdPed, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(JBBuscar, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(JBBProducto, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(JBBCantidad, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(JBCarrito))))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,7 +225,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(JCBIdPedProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JBCarrito))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JTFIdPed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JBBuscar)
@@ -229,12 +242,13 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
                     .addComponent(jLabel5))
                 .addGap(48, 48, 48)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBSalir)
                     .addComponent(JBLimpiar)
                     .addComponent(JBModificar)
-                    .addComponent(JBAgregar))
+                    .addComponent(JBAgregar)
+                    .addComponent(JBEliminar))
                 .addGap(25, 25, 25))
         );
 
@@ -246,7 +260,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBSalirActionPerformed
 
     private void JCBIdPedProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCBIdPedProdActionPerformed
-/*        // TODO add your handling code here:
+        /*        // TODO add your handling code here:
    try {
             PedidoProducto pedProd = new PedidoProducto();
             pedProd = (PedidoProducto) JCBIdPedProd.getSelectedItem();
@@ -309,7 +323,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
             }
             PedidoProductoData pedProdData = new PedidoProductoData();
             PedidoProducto pedProd = new PedidoProducto();
-            
+
             Producto producto = new Producto();
             producto = (Producto) JCBProd.getSelectedItem();
             pedProd.setIdPedido(Integer.parseInt(JTFIdPed.getText()));
@@ -320,8 +334,8 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
 
             pedProdData.crearCarrito(pedProd);
             Pedido pedido = new Pedido();
-            PedidoData pedidoData = new PedidoData();      
-            pedido.setImporte(Integer.parseInt(JTFCantidad.getText())*producto.getPrecio());            
+            PedidoData pedidoData = new PedidoData();
+            pedido.setImporte(Integer.parseInt(JTFCantidad.getText()) * producto.getPrecio());
             pedidoData.modificarPedido(pedido);
             modelo.setRowCount(0);
             cargarTabla(pedProd);
@@ -374,8 +388,8 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
 
-           // if (JCBProd.getSelectedItem().toString().equals("---") || JCBProd.getSelectedItem().toString().equals("Productos")) {
-           if(JCBProd.getSelectedIndex()==0){
+            // if (JCBProd.getSelectedItem().toString().equals("---") || JCBProd.getSelectedItem().toString().equals("Productos")) {
+            if (JCBProd.getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(this, "Seleccione un producto");
                 return;
             }
@@ -488,8 +502,8 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
             //pedProducto = (PedidoProducto) JCBIdPedProd.getSelectedItem();
             listaProd = prodData.listarProductos(); // lista de Producto
             // int a = (int) JCBIdPedProd.getSelectedItem();
-           // if (!JCBIdPedProd.getSelectedItem().toString().equals("---") || !JCBIdPedProd.getSelectedItem().toString().equals("id Carrito")) {
-           if(JCBIdPedProd.getSelectedIndex()!=0){
+            // if (!JCBIdPedProd.getSelectedItem().toString().equals("---") || !JCBIdPedProd.getSelectedItem().toString().equals("id Carrito")) {
+            if (JCBIdPedProd.getSelectedIndex() != 0) {
                 for (Producto listaP : listaProd) { //obtwngo productos
                     if (pedProd.getIdProducto() == listaP.getIdProducto()) {
                         //System.out.println("Pipas");
@@ -516,6 +530,22 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_JBCarritoActionPerformed
 
+    private void JBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBEliminarActionPerformed
+        // TODO add your handling code here:
+        PedidoProducto pedProd = new PedidoProducto();
+        PedidoProductoData ppData= new PedidoProductoData();
+        pedProd = (PedidoProducto) JCBIdPedProd.getSelectedItem();
+        
+        if (JCBIdPedProd.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione el carrito que desea eliminar");
+        }
+        
+       ppData.eliminar(pedProd);
+       modelo.setRowCount(0);
+       // System.out.println("pipas2:"+pedProd);
+
+    }//GEN-LAST:event_JBEliminarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBAgregar;
@@ -523,6 +553,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
     private javax.swing.JButton JBBProducto;
     private javax.swing.JButton JBBuscar;
     private javax.swing.JButton JBCarrito;
+    private javax.swing.JButton JBEliminar;
     private javax.swing.JButton JBLimpiar;
     private javax.swing.JButton JBModificar;
     private javax.swing.JComboBox JCBIdPedProd;
@@ -578,11 +609,11 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         PedidoData pedidoData = new PedidoData();
         producto = ProductoData.buscarProducto(pedidoProducto.getIdProducto());
         pedido = pedidoData.buscarPedidoPorId(pedidoProducto.getIdPedido());
-        modelo.addRow(new Object[]{pedidoProducto.getIdPedidoProducto(), 
-            pedidoProducto.getIdPedido(), 
-            producto.getNombre(), 
+        modelo.addRow(new Object[]{pedidoProducto.getIdPedidoProducto(),
+            pedidoProducto.getIdPedido(),
+            producto.getNombre(),
             pedidoProducto.getCantidad(),
-           "$"+ producto.getPrecio()*pedidoProducto.getCantidad()
+            "$" + producto.getPrecio() * pedidoProducto.getCantidad()
         });
         /*
         try {

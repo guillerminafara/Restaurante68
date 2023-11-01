@@ -26,45 +26,52 @@
               <Component id="JBModificar" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="JBLimpiar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="278" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="JBEliminar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="jBSalir" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="327" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="JTFIdPed" alignment="1" min="-2" pref="168" max="-2" attributes="0"/>
-                          <Component id="JCBProd" alignment="1" min="-2" pref="168" max="-2" attributes="0"/>
-                          <Component id="JTFCantidad" alignment="1" min="-2" pref="168" max="-2" attributes="0"/>
-                          <Component id="JCBIdPedProd" alignment="1" min="-2" pref="123" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                              <Component id="JCBProd" alignment="1" min="-2" pref="168" max="-2" attributes="0"/>
+                              <Component id="JTFCantidad" alignment="1" min="-2" pref="168" max="-2" attributes="0"/>
+                              <Component id="JCBIdPedProd" alignment="1" min="-2" pref="123" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="JTFIdPed" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                              <Component id="JBBuscar" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="JBBProducto" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="JBBCantidad" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="JBCarrito" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="JBBuscar" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="JBBProducto" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="JBBCantidad" alignment="1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="JBCarrito" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="118" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -78,7 +85,7 @@
                   <Component id="JCBIdPedProd" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="JBCarrito" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="17" max="32767" attributes="0"/>
+              <EmptySpace pref="22" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="JTFIdPed" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="JBBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -98,12 +105,13 @@
               </Group>
               <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="94" max="-2" attributes="0"/>
-              <EmptySpace pref="47" max="32767" attributes="0"/>
+              <EmptySpace pref="21" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jBSalir" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="JBLimpiar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="JBModificar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="JBAgregar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="JBEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
           </Group>
@@ -121,7 +129,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Id del pedido del producto"/>
+        <Property name="text" type="java.lang.String" value="Id Carrito:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
@@ -256,6 +264,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBCarritoActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="JBEliminar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Eliminar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBEliminarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

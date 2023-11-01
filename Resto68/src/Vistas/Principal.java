@@ -60,6 +60,7 @@ public class Principal extends javax.swing.JFrame {
             .addGap(0, 554, Short.MAX_VALUE)
         );
 
+        JMConsultas.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         JMConsultas.setText("Consultas");
         JMConsultas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

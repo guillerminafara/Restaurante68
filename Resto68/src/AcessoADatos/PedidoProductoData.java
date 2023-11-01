@@ -54,14 +54,14 @@ public class PedidoProductoData {
             for (Pedido listaPed : pedList) {
                 if (listaPed.getIdPedido() == pedprod.getIdPedido()) { // verificacio
                     bandera = false; //si el pedido está cobrado y coincide con el idped que recibimos no debe poder cargar
-                   // JOptionPane.showMessageDialog(null, "Puede agregar un nuevo pedido");
-                  
-                } 
+                    // JOptionPane.showMessageDialog(null, "Puede agregar un nuevo pedido");
+
+                }
             }
             for (Producto listaProd : prodList) {
                 if (listaProd.getIdProducto() == pedprod.getIdProducto()) {
                     bandera2 = true;//{ si el producto tiene stock(está activo) y coincide con el idprod que intentamos agregar, debe poder cargar
-                    
+
                 }
             }
             if (!bandera2) { //si es false no contamos con el producto 
@@ -80,8 +80,8 @@ public class PedidoProductoData {
                 } else {
                     JOptionPane.showMessageDialog(null, "algo está mal, fijate");
                 }
-            }else{
-                 JOptionPane.showMessageDialog(null, "mmmm algo está mal, fijate");
+            } else {
+                JOptionPane.showMessageDialog(null, "mmmm algo está mal, fijate");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -287,8 +287,8 @@ public class PedidoProductoData {
 
             for (Pedido listaPed : pedList) {
                 if (listaPed.getIdPedido() == pedProd.getIdPedido()) { // verificacio
-                     bandera=false;//si existe y está activo sera verdadero 
-                   
+                    bandera = false;//si existe y está activo sera verdadero 
+
                 }
             }
             for (Producto listaProd : prodList) {
@@ -296,7 +296,7 @@ public class PedidoProductoData {
                     bandera2 = true;//{ si el producto tiene stock(está activo) y coincide con el idprod que intentamos agregar, debe poder cargar
                 }
             }
-            
+
             if (!bandera2) { //si es false no contamos con el producto 
                 JOptionPane.showMessageDialog(null, "No contamos con ese producto");
             }
@@ -349,6 +349,39 @@ public class PedidoProductoData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla producto");
+        }
+    }
+
+    public void eliminar(PedidoProducto PedProd) {
+        //System.out.println("pipas 3:" + PedProd);
+        List<Pedido> pedidoList = new ArrayList<>();
+        pedidoList = pedidoData.listarPedidosPorCobrada(false);
+        boolean bandera = false;
+        String sql = "DELETE FROM pedidoproducto WHERE idPedidoProducto=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, PedProd.getIdPedidoProducto());
+            //System.out.println("prueba:" + PedProd.getIdPedido());
+            
+            for (Pedido lista : pedidoList) {
+                //System.out.println("pruebaaa" + lista.getIdPedido());
+                if (lista.getIdPedido() == PedProd.getIdPedido()) {
+                    bandera = true; // no cobrada
+
+                }
+            }
+            if (bandera) {
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Carrito cancelado");
+            } else {
+                JOptionPane.showMessageDialog(null, "Mesa ya cobrada, no puede cancelar el pedido ");
+
+            }
+
+        } catch (SQLException ex) {
+            //Logger.getLogger(PedidoProductoData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al acceder al carrito");
+
         }
 
     }
