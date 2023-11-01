@@ -53,11 +53,11 @@ public class Principal extends javax.swing.JFrame {
         JDPEscritorio.setLayout(JDPEscritorioLayout);
         JDPEscritorioLayout.setHorizontalGroup(
             JDPEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 534, Short.MAX_VALUE)
+            .addGap(0, 769, Short.MAX_VALUE)
         );
         JDPEscritorioLayout.setVerticalGroup(
             JDPEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 411, Short.MAX_VALUE)
+            .addGap(0, 554, Short.MAX_VALUE)
         );
 
         JMConsultas.setText("Consultas");

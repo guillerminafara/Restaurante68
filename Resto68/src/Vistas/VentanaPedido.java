@@ -521,6 +521,7 @@ public class VentanaPedido extends javax.swing.JInternalFrame {
     private void jBBuscarIdMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarIdMesaActionPerformed
         List<Pedido> pedidosPorMesa = new ArrayList<Pedido>();
         PedidoData pedidoData = new PedidoData();
+        
         modelo.setRowCount(0);
         try {
             if (jTfIdMesa.getText().isEmpty()) {
@@ -599,7 +600,7 @@ public class VentanaPedido extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Ingrese la fecha que desea buscar");
                 return;
             }
-            if(Integer.parseInt(JTFHoras.getText().substring(0,2))<0 || Integer.parseInt(JTFHoras.getText().substring(0,2))>12 ){
+            if(Integer.parseInt(JTFHoras.getText().substring(0,2))<0 || Integer.parseInt(JTFHoras.getText().substring(0,2))>23 ){
                 JOptionPane.showMessageDialog(this, "Ingrese una hora valida entre 0 y 23");
                 return;                
             }
@@ -607,7 +608,7 @@ public class VentanaPedido extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Ingrese minutos validos entre 0 y 59");
                 return;                
             }            
-            LocalTime Hora = LocalTime.parse(/*horaParcial*/JTFHoras.getText(), DateTimeFormatter.ofPattern("HH:mm"));
+            LocalTime Hora = LocalTime.parse(JTFHoras.getText(), DateTimeFormatter.ofPattern("HH:mm"));
             pedidosPorHora = pedidoData.listarPedidosPorHora(Hora, Hora);
             if(pedidosPorHora.isEmpty()){
                 JOptionPane.showMessageDialog(this, "No hay pedidos en esta Hora");

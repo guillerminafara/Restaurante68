@@ -7,7 +7,10 @@ package Vistas;
 
 import AcessoADatos.MesaData;
 import Entidades.Mesa;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,11 +18,10 @@ import javax.swing.JOptionPane;
  */
 public class VentanaMesa extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form VentanaMesa
-     */
+    private DefaultTableModel modelo = new DefaultTableModel();
     public VentanaMesa() {
         initComponents();
+        cargarCabecera();
     }
 
     /**
@@ -45,7 +47,7 @@ public class VentanaMesa extends javax.swing.JInternalFrame {
         jBSalir = new javax.swing.JButton();
         JBBuscarPorId = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        JTMesa = new javax.swing.JTable();
         JRBEstado = new javax.swing.JRadioButton();
         JBBuscarPorNumero = new javax.swing.JButton();
         JBBuscarPorCapacidad = new javax.swing.JButton();
@@ -97,7 +99,7 @@ public class VentanaMesa extends javax.swing.JInternalFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        JTMesa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -108,7 +110,7 @@ public class VentanaMesa extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(JTMesa);
 
         JRBEstado.setText("Ocupada");
         JRBEstado.addActionListener(new java.awt.event.ActionListener() {
@@ -125,8 +127,18 @@ public class VentanaMesa extends javax.swing.JInternalFrame {
         });
 
         JBBuscarPorCapacidad.setText("Por capacidad");
+        JBBuscarPorCapacidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBBuscarPorCapacidadActionPerformed(evt);
+            }
+        });
 
         JBBuscarPorEstado.setText("Por estado");
+        JBBuscarPorEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBBuscarPorEstadoActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Búsquedas");
 
@@ -192,10 +204,9 @@ public class VentanaMesa extends javax.swing.JInternalFrame {
                         .addComponent(JBBuscarPorId))
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(JTFNumeroMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(JBBuscarPorNumero))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JTFNumeroMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JBBuscarPorNumero)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -226,6 +237,7 @@ public class VentanaMesa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBSalirActionPerformed
 
     private void JBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBAgregarActionPerformed
+        modelo.setRowCount(0);
         MesaData mesaData = new MesaData();
         Mesa mesa = new Mesa();
 
@@ -247,6 +259,7 @@ public class VentanaMesa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JBAgregarActionPerformed
 
     private void JBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBModificarActionPerformed
+        modelo.setRowCount(0);
         MesaData mesaData = new MesaData();
         Mesa mesa = new Mesa();
         if (JTFIdMesa.getText().isEmpty()) {
@@ -271,6 +284,7 @@ public class VentanaMesa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JBModificarActionPerformed
 
     private void JBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBLimpiarActionPerformed
+        modelo.setRowCount(0);
         JTFIdMesa.setText("");
         JTFNumeroMesa.setText("");
         JTFCapacidadMesa.setText("");
@@ -278,7 +292,7 @@ public class VentanaMesa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JBLimpiarActionPerformed
 
     private void JBBuscarPorIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBuscarPorIdActionPerformed
-
+        modelo.setRowCount(0);
         Mesa mesa = new Mesa();
         MesaData mesaData = new MesaData();
         try {
@@ -302,7 +316,7 @@ public class VentanaMesa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JRBEstadoActionPerformed
 
     private void JBBuscarPorNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBuscarPorNumeroActionPerformed
-        // TODO add your handling code here:ç
+        modelo.setRowCount(0);
         Mesa mesa = new Mesa();
         MesaData mesaData = new MesaData();
         try {
@@ -322,6 +336,54 @@ public class VentanaMesa extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_JBBuscarPorNumeroActionPerformed
 
+    private void JBBuscarPorCapacidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBuscarPorCapacidadActionPerformed
+        List<Mesa> listaMesa = new ArrayList<>();
+        MesaData mesaData = new MesaData();
+        modelo.setRowCount(0);
+        try {
+            if (JTFCapacidadMesa.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debe ingresar un número de mesa para la búsqueda");
+            }
+            listaMesa = mesaData.buscarMesaPorCapacidad(Integer.parseInt(JTFCapacidadMesa.getText()));            
+            
+            for(Mesa mesita : listaMesa){
+                cargarMesa(mesita);
+            }            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Solo ingrese números");
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Ingrese un id válido");
+        }
+    }//GEN-LAST:event_JBBuscarPorCapacidadActionPerformed
+
+    private void JBBuscarPorEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBuscarPorEstadoActionPerformed
+        modelo.setRowCount(0);
+        List<Mesa> listaMesa = new ArrayList<>();
+        MesaData mesaData = new MesaData();        
+        listaMesa = mesaData.buscarMesaPorEstado(JRBEstado.isSelected());
+        for(Mesa mesita : listaMesa)
+            cargarMesa(mesita);
+    }//GEN-LAST:event_JBBuscarPorEstadoActionPerformed
+    private void cargarCabecera() { //Coloca los nombres de la cabecera de la tabla
+        modelo.addColumn("Id Mesa");
+        modelo.addColumn("Numero de Mesa");
+        modelo.addColumn("Capacidad");
+        modelo.addColumn("Estado");
+        JTMesa.setModel(modelo);
+    }
+    private void cargarMesa(Mesa mesa){
+        String cobrada = "No esta cobrada";
+        if (mesa.isEstadoDeMesa()) {
+            cobrada = "Esta cobrada";
+        }
+    modelo.addRow(new Object[]{
+            mesa.getIdMesa(),
+            mesa.getCapacidad(),
+            mesa.getCapacidad(),
+            cobrada
+        });
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBAgregar;
@@ -335,6 +397,7 @@ public class VentanaMesa extends javax.swing.JInternalFrame {
     private javax.swing.JTextField JTFCapacidadMesa;
     private javax.swing.JTextField JTFIdMesa;
     private javax.swing.JTextField JTFNumeroMesa;
+    private javax.swing.JTable JTMesa;
     private javax.swing.JButton jBSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -343,6 +406,5 @@ public class VentanaMesa extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
