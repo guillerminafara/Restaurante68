@@ -10,7 +10,7 @@ package Entidades;
  * @author Fran-PC
  */
 public class PedidoProducto {
-        int idPedidoProducto;
+    int idPedidoProducto;
     int idPedido;
     int idProducto;
     int cantidad;
