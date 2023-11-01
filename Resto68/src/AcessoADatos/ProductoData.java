@@ -298,6 +298,29 @@ public class ProductoData {
         return listaProductos;
     }
 
+    public void eliminar(int idProducto) {
+        //System.out.println("pipas 3:" + PedProd);
+        Producto producto = new Producto();
+        ProductoData productoData = new ProductoData();
+        producto = productoData.buscarProducto(idProducto);
+        boolean bandera = false;
+        String sql = "DELETE FROM producto WHERE idProducto=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idProducto);
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Producto eliminada correctamente");
+            }
+            
+        }catch (SQLException ex) {
+            //Logger.getLogger(PedidoProductoData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al acceder al producto");
+
+        }
+
+    }
+    
     public List<Producto> listarProductos() {
         List<Producto> productoList = new ArrayList<>();
 

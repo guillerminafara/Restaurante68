@@ -138,6 +138,30 @@ public class PedidoData {
         return listaDePedidos;
     }
     
+    
+    public void eliminar(int idPedido) {
+        //System.out.println("pipas 3:" + PedProd);
+        Pedido pedido = new Pedido();
+        PedidoData pedidoData = new PedidoData();
+        pedido = pedidoData.buscarPedidoPorId(idPedido);
+        boolean bandera = false;
+        String sql = "DELETE FROM pedido WHERE idPedido=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idPedido);
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Pedido eliminada correctamente");
+            }
+            
+        }catch (SQLException ex) {
+            //Logger.getLogger(PedidoProductoData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al acceder al pedido");
+
+        }
+
+    }
+    
     public Pedido buscarPedidoPorId(int idPedido){
         Pedido pedido = null;
         String sql = "SELECT idMesa, mesero, fechaHora, importe, cobrada FROM pedido WHERE idPedido=? ";

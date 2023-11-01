@@ -62,6 +62,7 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
         JBBuscarPorPrecio = new javax.swing.JButton();
         JBBuscarPorEstado = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
+        JBEliminar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("PRODUCTO");
@@ -174,6 +175,13 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Búsquedas");
 
+        JBEliminar.setText("Eliminar");
+        JBEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBEliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -181,20 +189,9 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(JBAgregarProducto)
-                                .addGap(18, 18, 18)
-                                .addComponent(JBModificar)
-                                .addGap(18, 18, 18)
-                                .addComponent(JBLimpiar)
-                                .addGap(107, 107, 107)
-                                .addComponent(JBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(204, 204, 204)
-                                .addComponent(jLabel1)))
-                        .addGap(0, 92, Short.MAX_VALUE))
+                        .addGap(204, 204, 204)
+                        .addComponent(jLabel1)
+                        .addGap(0, 257, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,6 +222,18 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel8)
                                         .addComponent(JBBuscarPorId)))))))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(JBAgregarProducto)
+                .addGap(18, 18, 18)
+                .addComponent(JBModificar)
+                .addGap(18, 18, 18)
+                .addComponent(JBLimpiar)
+                .addGap(18, 18, 18)
+                .addComponent(JBEliminar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(JBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,7 +282,8 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
                     .addComponent(JBAgregarProducto)
                     .addComponent(JBModificar)
                     .addComponent(JBLimpiar)
-                    .addComponent(JBSalir))
+                    .addComponent(JBSalir)
+                    .addComponent(JBEliminar))
                 .addGap(15, 15, 15))
         );
 
@@ -502,6 +512,17 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_JRBEstadoProductoActionPerformed
 
+    private void JBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBEliminarActionPerformed
+        ProductoData productoData = new ProductoData();
+        try {            
+            productoData.eliminar(Integer.parseInt(JTFIdProducto.getText()));
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Solo ingrese números");
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Ingrese un id válido");
+        }
+    }//GEN-LAST:event_JBEliminarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBAgregarProducto;
@@ -510,6 +531,7 @@ public class VentanaProducto extends javax.swing.JInternalFrame {
     private javax.swing.JButton JBBuscarPorNombreProducto;
     private javax.swing.JButton JBBuscarPorPrecio;
     private javax.swing.JButton JBBuscarTipoProducto;
+    private javax.swing.JButton JBEliminar;
     private javax.swing.JButton JBLimpiar;
     private javax.swing.JButton JBModificar;
     private javax.swing.JButton JBSalir;

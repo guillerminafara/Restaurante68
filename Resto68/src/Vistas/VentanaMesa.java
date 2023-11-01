@@ -53,6 +53,7 @@ public class VentanaMesa extends javax.swing.JInternalFrame {
         JBBuscarPorCapacidad = new javax.swing.JButton();
         JBBuscarPorEstado = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        JBEliminar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("MESA");
@@ -144,6 +145,13 @@ public class VentanaMesa extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Búsquedas");
 
+        JBEliminar.setText("Eliminar");
+        JBEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBEliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -186,6 +194,8 @@ public class VentanaMesa extends javax.swing.JInternalFrame {
                         .addComponent(JBModificar)
                         .addGap(18, 18, 18)
                         .addComponent(JBLimpiar)
+                        .addGap(32, 32, 32)
+                        .addComponent(JBEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBSalir)
                         .addGap(54, 54, 54))))
@@ -228,7 +238,8 @@ public class VentanaMesa extends javax.swing.JInternalFrame {
                     .addComponent(JBAgregar)
                     .addComponent(JBModificar)
                     .addComponent(jBSalir)
-                    .addComponent(JBLimpiar))
+                    .addComponent(JBLimpiar)
+                    .addComponent(JBEliminar))
                 .addContainerGap())
         );
 
@@ -367,6 +378,26 @@ public class VentanaMesa extends javax.swing.JInternalFrame {
         for(Mesa mesita : listaMesa)
             cargarMesa(mesita);
     }//GEN-LAST:event_JBBuscarPorEstadoActionPerformed
+
+    private void JBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBEliminarActionPerformed
+        MesaData mesaData = new MesaData();
+        List<Mesa> mesa = new ArrayList<>();
+        
+        try {            
+            mesa=mesaData.buscarMesaPorEstado(true);
+            for(Mesa mesita:mesa){
+                if(Integer.parseInt(JTFIdMesa.getText())==mesita.getIdMesa()){
+                    mesaData.eliminar(Integer.parseInt(JTFIdMesa.getText()));                    
+                }
+            }
+            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Solo ingrese números");
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Ingrese un id válido");
+        }
+        
+    }//GEN-LAST:event_JBEliminarActionPerformed
     private void cargarCabecera() { //Coloca los nombres de la cabecera de la tabla
         modelo.addColumn("Id Mesa");
         modelo.addColumn("Numero de Mesa");
@@ -394,6 +425,7 @@ public class VentanaMesa extends javax.swing.JInternalFrame {
     private javax.swing.JButton JBBuscarPorEstado;
     private javax.swing.JButton JBBuscarPorId;
     private javax.swing.JButton JBBuscarPorNumero;
+    private javax.swing.JButton JBEliminar;
     private javax.swing.JButton JBLimpiar;
     private javax.swing.JButton JBModificar;
     private javax.swing.JRadioButton JRBEstado;

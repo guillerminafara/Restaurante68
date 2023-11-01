@@ -161,10 +161,6 @@ public class VentanaPedidos2 extends javax.swing.JInternalFrame {
                                 .addGap(50, 50, 50)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(JDCFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel4)
@@ -174,7 +170,11 @@ public class VentanaPedidos2 extends javax.swing.JInternalFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(JTFHoraFinal, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-                                            .addComponent(JTFHoraInicial))))
+                                            .addComponent(JTFHoraInicial)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(JDCFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 29, Short.MAX_VALUE)
@@ -216,7 +216,7 @@ public class VentanaPedidos2 extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(JTFHoraFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -251,6 +251,7 @@ public class VentanaPedidos2 extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Seleccione un mesero");
                 return;
             }
+            boolean bandera=false;
             List<Pedido> listaPed = new ArrayList<>();
             PedidoData pedidoData = new PedidoData();
             listaPed = pedidoData.listarPedidosPorMesero(JCBMesero.getSelectedItem().toString());
@@ -259,9 +260,11 @@ public class VentanaPedidos2 extends javax.swing.JInternalFrame {
                 LocalDate fechaPedido = pedList.getFechaHora().toLocalDate();
                 if (fecha.equals(fechaPedido)) {
                     cargarTabla(pedList);
-                } else {
-                    JOptionPane.showMessageDialog(this, "No hay pedidos en esa fecha para ese mesero");
+                    bandera=true;
                 }
+            }
+            if(!bandera){
+                JOptionPane.showMessageDialog(this, "No hay pedidos en esa fecha para ese mesero");
             }
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Seleccione la fecha");

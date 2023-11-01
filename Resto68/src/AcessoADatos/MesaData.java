@@ -54,17 +54,25 @@ public class MesaData {
         }
     }
 
-    public void eliminarMesa(int id) {
-        String sql = "UPDATE mesa SET estado=0 WHERE idMesa = ?";
+    public void eliminar(int idMesa) {
+        //System.out.println("pipas 3:" + PedProd);
+        Mesa mesa = new Mesa();
+        MesaData mesaData = new MesaData();
+        mesa = mesaData.buscarMesaPorId(idMesa);
+        boolean bandera = false;
+        String sql = "DELETE FROM mesa WHERE idMesa=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setInt(1, idMesa);
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Mesa eliminada correctamente");
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al modificar el estado de la mesa");
+            
+        }catch (SQLException ex) {
+            //Logger.getLogger(PedidoProductoData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al acceder a la mesa");
+
         }
 
     }
