@@ -54,6 +54,7 @@ public class VentanaCalculos extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         JCBMesa = new javax.swing.JComboBox();
         JBCalcular = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         jLabel3.setText("Total a Pagar:");
 
@@ -97,6 +98,9 @@ public class VentanaCalculos extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setText("Cuenta");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -126,11 +130,17 @@ public class VentanaCalculos extends javax.swing.JInternalFrame {
                                 .addComponent(JCBMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 72, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(173, 173, 173)
+                .addComponent(jLabel2)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(72, 72, 72)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel2)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(JCBMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -146,7 +156,7 @@ public class VentanaCalculos extends javax.swing.JInternalFrame {
                     .addComponent(JTFTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(JBCalcular))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -205,6 +215,7 @@ public class VentanaCalculos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField JTFTotal;
     private javax.swing.JTable JTabla;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane2;

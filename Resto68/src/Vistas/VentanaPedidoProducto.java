@@ -125,7 +125,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(JTablaPedProd);
 
-        JCBIdPedProd.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "id Carrito", "---" }));
+        JCBIdPedProd.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---" }));
         JCBIdPedProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JCBIdPedProdActionPerformed(evt);
@@ -374,7 +374,8 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
 
-            if (JCBProd.getSelectedItem().toString().equals("---") || JCBProd.getSelectedItem().toString().equals("Productos")) {
+           // if (JCBProd.getSelectedItem().toString().equals("---") || JCBProd.getSelectedItem().toString().equals("Productos")) {
+           if(JCBProd.getSelectedIndex()==0){
                 JOptionPane.showMessageDialog(this, "Seleccione un producto");
                 return;
             }
@@ -487,10 +488,11 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
             //pedProducto = (PedidoProducto) JCBIdPedProd.getSelectedItem();
             listaProd = prodData.listarProductos(); // lista de Producto
             // int a = (int) JCBIdPedProd.getSelectedItem();
-            if (!JCBIdPedProd.getSelectedItem().toString().equals("---") || !JCBIdPedProd.getSelectedItem().toString().equals("id Carrito")) {
+           // if (!JCBIdPedProd.getSelectedItem().toString().equals("---") || !JCBIdPedProd.getSelectedItem().toString().equals("id Carrito")) {
+           if(JCBIdPedProd.getSelectedIndex()!=0){
                 for (Producto listaP : listaProd) { //obtwngo productos
                     if (pedProd.getIdProducto() == listaP.getIdProducto()) {
-                        System.out.println("Pipas");
+                        //System.out.println("Pipas");
                         JCBProd.setSelectedIndex(listaP.getIdProducto());
 
                     }
@@ -576,7 +578,12 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         PedidoData pedidoData = new PedidoData();
         producto = ProductoData.buscarProducto(pedidoProducto.getIdProducto());
         pedido = pedidoData.buscarPedidoPorId(pedidoProducto.getIdPedido());
-        modelo.addRow(new Object[]{pedidoProducto.getIdPedidoProducto(), pedidoProducto.getIdPedido(), producto.getNombre(), pedidoProducto.getCantidad()});
+        modelo.addRow(new Object[]{pedidoProducto.getIdPedidoProducto(), 
+            pedidoProducto.getIdPedido(), 
+            producto.getNombre(), 
+            pedidoProducto.getCantidad(),
+           "$"+ producto.getPrecio()*pedidoProducto.getCantidad()
+        });
         /*
         try {
             producto = ProductoData.buscarProducto(pedidoProducto.getIdProducto());
@@ -601,6 +608,7 @@ public class VentanaPedidoProducto extends javax.swing.JInternalFrame {
         modelo.addColumn("Producto");
         modelo.addColumn("Cantidad");
         //modelo.addColumn("Mesa");
+        modelo.addColumn("Total");
 
         JTablaPedProd.setModel(modelo);
     }
